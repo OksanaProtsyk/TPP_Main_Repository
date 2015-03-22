@@ -192,6 +192,20 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\constants\Enums.cs" />
+    <Compile Include="Models\entities\Accountant.cs" />
+    <Compile Include="Models\entities\Customer.cs" />
+    <Compile Include="Models\entities\HR.cs" />
+    <Compile Include="Models\entities\Manager.cs" />
+    <Compile Include="Models\entities\Operator.cs" />
+    <Compile Include="Models\entities\Order.cs" />
+    <Compile Include="Models\entities\ProductItem.cs" />
+    <Compile Include="Models\entities\Programmer.cs" />
+    <Compile Include="Models\entities\Project.cs" />
+    <Compile Include="Models\entities\ResourceManager.cs" />
+    <Compile Include="Models\entities\Task.cs" />
+    <Compile Include="Models\entities\UserProfile.cs" />
+    <Compile Include="Models\entities\Worker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
