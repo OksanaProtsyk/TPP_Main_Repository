@@ -10,6 +10,7 @@ using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
 using TPP_MainProject.Filters;
 using TPP_MainProject.Models;
+using TPP_MainProject.Models.entities;
 
 namespace TPP_MainProject.Controllers
 {

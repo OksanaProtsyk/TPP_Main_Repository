@@ -7,6 +7,6 @@ namespace TPP_MainProject.Models.entities
 {
     public class Customer : UserProfile
     {
-        public virtual ICollection<Order> orders;
+        public virtual ICollection<Order> orders { get; set; }
     }
 }
