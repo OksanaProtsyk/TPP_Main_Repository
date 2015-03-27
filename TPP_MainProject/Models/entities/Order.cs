@@ -6,7 +6,7 @@ using TPP_MainProject.Models.constants;
 
 namespace TPP_MainProject.Models.entities
 {
-    public abstract class Order
+    public class Order
     {
         public int id { get; set; }
         public DateTime orderDate { get; set; }

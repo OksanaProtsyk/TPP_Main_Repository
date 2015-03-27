@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="TPP_MainProject.Models.entities.Accountant" Collapsed="true">
+    <Position X="11.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\entities\Accountant.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TPP_MainProject.Models.entities.ApplicationUser" Collapsed="true">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\entities\ApplicationUser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TPP_MainProject.Models.entities.Customer" Collapsed="true">
+    <Position X="1" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\entities\Customer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TPP_MainProject.Models.entities.HR" Collapsed="true">
+    <Position X="3.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\entities\HR.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TPP_MainProject.Models.entities.Manager" Collapsed="true">
+    <Position X="5.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\entities\Manager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TPP_MainProject.Models.entities.Operator" Collapsed="true">
+    <Position X="10" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\entities\Operator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TPP_MainProject.Models.entities.Order" Collapsed="true">
+    <Position X="1.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAgAAgA=</HashCode>
+      <FileName>Models\entities\Order.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TPP_MainProject.Models.entities.TemplateOrder" Collapsed="true">
+    <Position X="0.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\entities\Order.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TPP_MainProject.Models.entities.CustomOrder" Collapsed="true">
+    <Position X="2.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\entities\Order.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TPP_MainProject.Models.entities.ProductItem" Collapsed="true">
+    <Position X="14.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAIAAAAAAAAAAkAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Models\entities\ProductItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TPP_MainProject.Models.entities.Programmer" Collapsed="true">
+    <Position X="12.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\entities\Programmer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TPP_MainProject.Models.entities.Project" Collapsed="true">
+    <Position X="16.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAIAAAAAAAAAAAAEAAgAAAAAEAAAAgA=</HashCode>
+      <FileName>Models\entities\Project.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TPP_MainProject.Models.entities.ResourceManager" Collapsed="true">
+    <Position X="7.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\entities\ResourceManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TPP_MainProject.Models.entities.Worker" Collapsed="true">
+    <Position X="7.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAAAAAAAAAAAAAAAAAQgAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\entities\Worker.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TPP_MainProject.Models.entities.WorkItem" Collapsed="true">
+    <Position X="14.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAEAAAAAAAACAAIAAAAAAAAAAEAAAAAAAAAAAAIgA=</HashCode>
+      <FileName>Models\entities\WorkItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
