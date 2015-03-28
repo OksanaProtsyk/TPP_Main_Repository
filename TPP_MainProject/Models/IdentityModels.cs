@@ -99,8 +99,18 @@ namespace TPP_MainProject.Models
             success = this.AddUserToRole(userManager, user.Id, "CanEdit");
             if (!success) return success;
 
-            success = this.AddUserToRole(userManager, user.Id, "User");
+            ApplicationUser user2 = new ApplicationUser();
+            PasswordHasher passwordHasher2 = new PasswordHasher();
+
+            user2.UserName = "okpr@gmail.com";
+            user2.Email = "okpr@gmail.com";
+
+            IdentityResult result2 = userManager.Create(user2, "Pas@123");
+
+            success = this.AddUserToRole(userManager, user2.Id, "User");
             if (!success) return success;
+
+
 
             return success;
 #endif
