@@ -5,22 +5,15 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using TPP_MainProject.Models.entities;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
+using System.Collections.Generic;
+using System;
+using System.Linq;
 
 namespace TPP_MainProject.Models
 {
 
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
-    {
-        public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
-        {
-        }
 
-        public static ApplicationDbContext Create()
-        {
-            return new ApplicationDbContext();
-        }
-        public DbSet<Order> Orders { get; set; }
+       /* public DbSet<Order> Orders { get; set; }
         public DbSet<ProductItem> Items { get; set; }
         public DbSet<WorkItem> WorkItems { get; set; }
         public DbSet<Resourse> Resourses { get; set; }
@@ -31,19 +24,147 @@ namespace TPP_MainProject.Models
                 .Map<Order>(m => m.Requires("Type").HasValue("Order"))
                 .Map<CustomOrder>(m => m.Requires("Type").HasValue("CustomOrder"))
                 .Map<TemplateOrder>(m => m.Requires("Type").HasValue("TemplateOrder"));
-          /*  modelBuilder.Entity<ApplicationUser>()
+           modelBuilder.Entity<ApplicationUser>()
                .Map<Customer>(m => m.Requires("RoleId").HasValue("Customer"))
                .Map<Accountant>(m => m.Requires("RoleId").HasValue("Accountant"))
                .Map<Manager>(m => m.Requires("RoleId").HasValue("Manager"))
                .Map<Operator>(m => m.Requires("RoleId").HasValue("Operator"))
                .Map<Programmer>(m => m.Requires("RoleId").HasValue("Programmer"))
                .Map<ResourceManager>(m => m.Requires("RoleId").HasValue("ResourseManager"));
-           * */
-
+           
             modelBuilder.Entity<IdentityUserLogin>().HasKey<string>(l => l.UserId);
             modelBuilder.Entity<IdentityRole>().HasKey<string>(r => r.Id);
             modelBuilder.Entity<IdentityUserRole>().HasKey(r => new { r.RoleId, r.UserId });
-
+*/
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    {
+        public DbSet<ApplicationRole> Roles { get; set; }
+        public ApplicationDbContext()
+            : base("DefaultConnection", throwIfV1Schema: false)
+        {
         }
-    }
+
+        public static ApplicationDbContext Create()
+        {
+            return new ApplicationDbContext();
+        }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            if (modelBuilder == null)
+            {
+                throw new ArgumentNullException("ModelBuilder is NULL");
+            }
+
+            base.OnModelCreating(modelBuilder);
+
+            //Defining the keys and relations
+            modelBuilder.Entity<ApplicationUser>().ToTable("AspNetUsers");
+            modelBuilder.Entity<ApplicationRole>().HasKey<string>(r => r.Id).ToTable("AspNetRoles");
+            modelBuilder.Entity<ApplicationUser>().HasMany<ApplicationUserRole>((ApplicationUser u) => u.UserRoles);
+            modelBuilder.Entity<ApplicationUserRole>().HasKey(r => new { UserId = r.UserId, RoleId = r.RoleId }).ToTable("AspNetUserRoles");
+        }
+
+        public bool Seed(ApplicationDbContext context)
+        {
+#if DEBUG
+            bool success = false;
+
+            ApplicationRoleManager _roleManager = new ApplicationRoleManager(new RoleStore<ApplicationRole>(context));
+
+            success = this.CreateRole(_roleManager, "Admin", "Global Access");
+            if (!success == true) return success;
+
+            success = this.CreateRole(_roleManager, "CanEdit", "Edit existing records");
+            if (!success == true) return success;
+
+            success = this.CreateRole(_roleManager, "User", "Restricted to business domain activity");
+            if (!success) return success;
+
+            // Create my debug (testing) objects here
+
+            ApplicationUserManager userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(context));
+
+            ApplicationUser user = new ApplicationUser();
+            PasswordHasher passwordHasher = new PasswordHasher();
+
+            user.UserName = "youremail@testemail.com";
+            user.Email = "youremail@testemail.com";
+
+            IdentityResult result = userManager.Create(user, "Pass@123");
+
+            success = this.AddUserToRole(userManager, user.Id, "Admin");
+            if (!success) return success;
+
+            success = this.AddUserToRole(userManager, user.Id, "CanEdit");
+            if (!success) return success;
+
+            success = this.AddUserToRole(userManager, user.Id, "User");
+            if (!success) return success;
+
+            return success;
+#endif
+        }
+
+        public bool RoleExists(ApplicationRoleManager roleManager, string name)
+        {
+            return roleManager.RoleExists(name);
+        }
+
+        public bool CreateRole(ApplicationRoleManager _roleManager, string name, string description = "")
+        {
+            var idResult = _roleManager.Create<ApplicationRole, string>(new ApplicationRole(name, description));
+            return idResult.Succeeded;
+        }
+
+        public bool AddUserToRole(ApplicationUserManager _userManager, string userId, string roleName)
+        {
+            var idResult = _userManager.AddToRole(userId, roleName);
+            return idResult.Succeeded;
+        }
+
+        public void ClearUserRoles(ApplicationUserManager userManager, string userId)
+        {
+            var user = userManager.FindById(userId);
+            var currentRoles = new List<IdentityUserRole>();
+
+            currentRoles.AddRange(user.UserRoles);
+            foreach (ApplicationUserRole role in currentRoles)
+            {
+                userManager.RemoveFromRole(userId, role.Role.Name);
+            }
+        }
+
+
+        public void RemoveFromRole(ApplicationUserManager userManager, string userId, string roleName)
+        {
+            userManager.RemoveFromRole(userId, roleName);
+        }
+
+        public void DeleteRole(ApplicationDbContext context, ApplicationUserManager userManager, string roleId)
+        {
+            var roleUsers = context.Users.Where(u => u.UserRoles.Any(r => r.RoleId == roleId));
+            var role = context.Roles.Find(roleId);
+
+            foreach (var user in roleUsers)
+            {
+                this.RemoveFromRole(userManager, user.Id, role.Name);
+            }
+            context.Roles.Remove(role);
+            context.SaveChanges();
+        }
+
+        /// <summary>
+        /// Context Initializer
+        /// </summary>
+        public class DropCreateAlwaysInitializer : DropCreateDatabaseAlways<ApplicationDbContext>
+        {
+            protected override void Seed(ApplicationDbContext context)
+            {
+                context.Seed(context);
+
+                base.Seed(context);
+            }
+        }
+    }   
 }
