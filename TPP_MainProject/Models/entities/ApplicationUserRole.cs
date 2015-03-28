@@ -13,6 +13,7 @@ namespace TPP_MainProject.Models.entities
         { }
 
         public ApplicationRole Role { get; set; }
+
     }
    
 }

@@ -21,40 +21,29 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-@if (Request.IsAuthenticated)
-{
-    if (User.IsInRole("Admin"))
-    {
+                    @if (Request.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("About", "About", "Home")</li>
+                        <li>@Html.ActionLink("My cabinet", "Index", "Distributor")</li>
+                        if (User.IsInRole("Admin"))
+                        {
+                            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                            <li>@Html.ActionLink("Roles", "Index", "Roles")</li>
+                        }
 
-            <li>@Html.ActionLink("Home", "Index", "Home")</li>
-            <li>@Html.ActionLink("About", "About", "Home")</li>
-            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-            <li>@Html.ActionLink("Roles", "Index", "Roles")</li>
-            <li>@Html.ActionLink("Users", "Index", "AdminUser")</li>
-    
-       
-    }
-    else { 
-    if (User.IsInRole("Customer"))
-    {
+                    }
+                    @* For unknown user *@
+                    else
+                    {
 
-            <li>@Html.ActionLink("Home", "Index", "Home")</li>
-            <li>@Html.ActionLink("About", "About", "Home")</li>
-     
-    }
-    }
-}
-        @* For unknown user *@
-else
-{
-    
-        <li>@Html.ActionLink("Home", "Index", "Home")</li>
-        <li>@Html.ActionLink("About", "About", "Home")</li>
-        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-   
-}
-                  
-                 </ul>
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+
+                    }
+
+                </ul>
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
