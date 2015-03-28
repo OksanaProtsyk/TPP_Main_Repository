@@ -81,7 +81,7 @@ namespace TPP_MainProject.Models
             if (!success == true) return success;
             success = this.CreateRole(_roleManager, RolesConst.ACCOUNTANT, "Pidrahyu");
             if (!success == true) return success;
-            success = this.CreateRole(_roleManager, RolesConst.WORKER, "Make work");
+            success = this.CreateRole(_roleManager, RolesConst.PROGRAMER, "Make work");
             if (!success == true) return success;
 
 
@@ -117,10 +117,10 @@ namespace TPP_MainProject.Models
 
             ApplicationUser user4 = new ApplicationUser();
             PasswordHasher passwordHasher4 = new PasswordHasher();
-            user4.UserName = "worker@i.com";
-            user4.Email = "worker@i.com";
+            user4.UserName = RolesConst.PROGRAMER;
+            user4.Email =    RolesConst.PROGRAMER + "@i.com";
             IdentityResult result4 = userManager.Create(user4, "Pas@123");
-            success = this.AddUserToRole(userManager, user4.Id, RolesConst.WORKER);
+            success = this.AddUserToRole(userManager, user4.Id, RolesConst.PROGRAMER);
             if (!success) return success;
 
 #endif
