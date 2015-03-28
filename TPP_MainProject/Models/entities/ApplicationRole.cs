@@ -17,5 +17,6 @@ namespace TPP_MainProject.Models.entities
         }
 
         public virtual string Description { get; set; }
+     
     }
 }

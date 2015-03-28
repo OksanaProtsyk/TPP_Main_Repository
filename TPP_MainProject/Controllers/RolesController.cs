@@ -12,12 +12,12 @@ using TPP_MainProject.Models.ViewModels;
 
 namespace TPP_MainProject.Controllers
 {
-     [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public class RolesController : Controller
     {
         private ApplicationDbContext _db = new ApplicationDbContext();
 
-         [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
             var rolesList = new List<RoleViewModel>();

@@ -12,6 +12,7 @@ using Microsoft.Owin.Security;
 using Owin;
 using TPP_MainProject.Models;
 using TPP_MainProject.Models.entities;
+using TPP_MainProject.Models.repository;
 
 namespace TPP_MainProject.Controllers
 {
@@ -19,6 +20,7 @@ namespace TPP_MainProject.Controllers
     public class AccountController : Controller
     {
         private ApplicationUserManager _userManager;
+        private UnitOfWork unityOfWork = new UnitOfWork();
 
         public AccountController()
         {
@@ -98,13 +100,16 @@ namespace TPP_MainProject.Controllers
                     LastName = model.LastName,
                     Organization = model.Organization,
                     City = model.City,
-                    Country = model.Country
+                    Country = model.Country,
+
                 };
                
                 IdentityResult result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     UserManager.AddToRole(user.Id, "Customer");
+                    user.RoleName = UserManager.GetRoles(user.Id).First();
+                    UserManager.Update(user);
                     await SignInAsync(user, isPersistent: false);
 
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
@@ -477,6 +482,7 @@ namespace TPP_MainProject.Controllers
             base.Dispose(disposing);
         }
 
+       
         #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
