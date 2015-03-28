@@ -19,5 +19,10 @@ namespace TPP_MainProject.Models.entities
             return userIdentity;
         }
         public ICollection<ApplicationUserRole> UserRoles { get; set; }
+        public string FistName { get; set; }     
+        public string LastName { get; set; }
+        public string Organization { get; set; }
+        public string City { get; set; }
+        public string Country { get; set; }
     }
 }

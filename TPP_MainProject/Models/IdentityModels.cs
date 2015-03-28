@@ -74,12 +74,10 @@ namespace TPP_MainProject.Models
 
             success = this.CreateRole(_roleManager, "Admin", "Global Access");
             if (!success == true) return success;
-
+            success = this.CreateRole(_roleManager, "Customer", "Customer");
+            if (!success == true) return success;
             success = this.CreateRole(_roleManager, "CanEdit", "Edit existing records");
             if (!success == true) return success;
-
-            success = this.CreateRole(_roleManager, "User", "Restricted to business domain activity");
-            if (!success) return success;
 
             // Create my debug (testing) objects here
 
@@ -107,7 +105,7 @@ namespace TPP_MainProject.Models
 
             IdentityResult result2 = userManager.Create(user2, "Pas@123");
 
-            success = this.AddUserToRole(userManager, user2.Id, "User");
+            success = this.AddUserToRole(userManager, user2.Id, "Customer");
             if (!success) return success;
 
 

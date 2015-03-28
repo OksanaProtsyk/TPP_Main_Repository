@@ -91,10 +91,20 @@ namespace TPP_MainProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
+                var user = new Customer() { 
+                    UserName = model.Email,
+                    Email = model.Email,
+                    FistName = model.FistName,
+                    LastName = model.LastName,
+                    Organization = model.Organization,
+                    City = model.City,
+                    Country = model.Country
+                };
+               
                 IdentityResult result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    UserManager.AddToRole(user.Id, "Customer");
                     await SignInAsync(user, isPersistent: false);
 
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771

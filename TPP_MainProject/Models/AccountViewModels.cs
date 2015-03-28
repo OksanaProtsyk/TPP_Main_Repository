@@ -68,6 +68,16 @@ namespace TPP_MainProject.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+        [Required]
+        [Display(Name = "First Name")]
+        public string FistName { get; set; }
+        [Required]
+        [Display(Name="Last Name")]
+        public string LastName { get; set; }
+        public string Organization { get; set; }
+        public string City { get; set; }
+        public string Country { get; set; }
+       
     }
 
     public class ResetPasswordViewModel
