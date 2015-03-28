@@ -22,6 +22,7 @@ namespace TPP_MainProject.Models.ViewModels
         public AdminUserViewModel() { }
         public AdminUserViewModel(ApplicationUser user)
         {
+
             this.UserName = user.UserName;
             this.Email = user.Email;
             this.FistName = user.FistName;
