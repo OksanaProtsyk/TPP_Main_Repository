@@ -8,6 +8,7 @@ using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Collections.Generic;
 using System;
 using System.Linq;
+using TPP_MainProject.Models.constants;
 
 namespace TPP_MainProject.Models
 {
@@ -67,17 +68,22 @@ namespace TPP_MainProject.Models
 
         public bool Seed(ApplicationDbContext context)
         {
-#if DEBUG
-            bool success = false;
 
+            bool success = false;
+#if DEBUG
             ApplicationRoleManager _roleManager = new ApplicationRoleManager(new RoleStore<ApplicationRole>(context));
 
-            success = this.CreateRole(_roleManager, "Admin", "Global Access");
+            success = this.CreateRole(_roleManager, RolesConst.ADMIN, "Global Access");
             if (!success == true) return success;
-            success = this.CreateRole(_roleManager, "Customer", "Customer");
+            success = this.CreateRole(_roleManager, RolesConst.CUSTOMER, "Customer");
             if (!success == true) return success;
-            success = this.CreateRole(_roleManager, "CanEdit", "Edit existing records");
+            success = this.CreateRole(_roleManager, RolesConst.CAN_EDIT, "Edit existing records");
             if (!success == true) return success;
+            success = this.CreateRole(_roleManager, RolesConst.ACCOUNTANT, "Pidrahyu");
+            if (!success == true) return success;
+            success = this.CreateRole(_roleManager, RolesConst.WORKER, "Make work");
+            if (!success == true) return success;
+
 
             // Create my debug (testing) objects here
 
@@ -85,33 +91,41 @@ namespace TPP_MainProject.Models
 
             ApplicationUser user = new ApplicationUser();
             PasswordHasher passwordHasher = new PasswordHasher();
-
             user.UserName = "youremail@testemail.com";
             user.Email = "youremail@testemail.com";
-
             IdentityResult result = userManager.Create(user, "Pass@123");
-
-            success = this.AddUserToRole(userManager, user.Id, "Admin");
+            success = this.AddUserToRole(userManager, user.Id, RolesConst.ADMIN);
             if (!success) return success;
-
             success = this.AddUserToRole(userManager, user.Id, "CanEdit");
             if (!success) return success;
 
             ApplicationUser user2 = new ApplicationUser();
             PasswordHasher passwordHasher2 = new PasswordHasher();
-
             user2.UserName = "okpr@gmail.com";
             user2.Email = "okpr@gmail.com";
-
             IdentityResult result2 = userManager.Create(user2, "Pas@123");
-
-            success = this.AddUserToRole(userManager, user2.Id, "Customer");
+            success = this.AddUserToRole(userManager, user2.Id, RolesConst.CUSTOMER);
             if (!success) return success;
 
+            ApplicationUser user3 = new ApplicationUser();
+            PasswordHasher passwordHasher3 = new PasswordHasher();
+            user3.UserName = "accounter@i.com";
+            user3.Email = "accounter@i.com";
+            IdentityResult result3 = userManager.Create(user3, "Pas@123");
+            success = this.AddUserToRole(userManager, user3.Id, RolesConst.ACCOUNTANT);
+            if (!success) return success;
 
+            ApplicationUser user4 = new ApplicationUser();
+            PasswordHasher passwordHasher4 = new PasswordHasher();
+            user4.UserName = "worker@i.com";
+            user4.Email = "worker@i.com";
+            IdentityResult result4 = userManager.Create(user4, "Pas@123");
+            success = this.AddUserToRole(userManager, user4.Id, RolesConst.WORKER);
+            if (!success) return success;
 
-            return success;
 #endif
+            return success;
+
         }
 
         public bool RoleExists(ApplicationRoleManager roleManager, string name)
@@ -128,6 +142,7 @@ namespace TPP_MainProject.Models
         public bool AddUserToRole(ApplicationUserManager _userManager, string userId, string roleName)
         {
             var idResult = _userManager.AddToRole(userId, roleName);
+       
             return idResult.Succeeded;
         }
 
@@ -174,5 +189,9 @@ namespace TPP_MainProject.Models
                 base.Seed(context);
             }
         }
+
+        public System.Data.Entity.DbSet<TPP_MainProject.Models.entities.Accountant> Accountants { get; set; }
+
+        public System.Data.Entity.DbSet<TPP_MainProject.Models.entities.Worker> Workers { get; set; }
     }   
 }
