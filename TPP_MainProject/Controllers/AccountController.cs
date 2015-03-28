@@ -20,7 +20,6 @@ namespace TPP_MainProject.Controllers
     public class AccountController : Controller
     {
         private ApplicationUserManager _userManager;
-        private UnitOfWork unityOfWork = new UnitOfWork();
 
         public AccountController()
         {

@@ -8,16 +8,22 @@ using System.Web;
 using System.Web.Mvc;
 using TPP_MainProject.Models.entities;
 using TPP_MainProject.Models;
+using TPP_MainProject.Models.repository;
 
 namespace TPP_MainProject.Controllers
 {
     public class AccountantController : Controller
     {
        // private ApplicationDbContext db = new ApplicationDbContext();
-
+   
+        GenericRepository<Accountant> db = new UnitOfWork().AccountantRepository;
         //// GET: /Accountant/
         public ActionResult Index()
         {
+            IEnumerable<Accountant> accountants =  db.Get();
+            foreach (Accountant acc in accountants){
+             
+            }
             return View();
         }
 

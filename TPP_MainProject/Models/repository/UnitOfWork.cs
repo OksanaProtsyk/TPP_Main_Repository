@@ -11,7 +11,7 @@ namespace TPP_MainProject.Models.repository
         private ApplicationDbContext context = new ApplicationDbContext();
         private GenericRepository<Order> orderRepository;
         private GenericRepository<ApplicationUser> applicationRepository;
-    
+        private GenericRepository<Accountant> accountantRepository;
 
         public GenericRepository<Order> OrderRepository
         {
@@ -26,6 +26,19 @@ namespace TPP_MainProject.Models.repository
             }
         }
 
+
+        public GenericRepository<Accountant> AccountantRepository
+        {
+            get
+            {
+
+                if (this.accountantRepository == null)
+                {
+                    this.accountantRepository = new GenericRepository<Accountant>(context);
+                }
+                return accountantRepository;
+            }
+        }
         public GenericRepository<ApplicationUser> UserRepository
         {
             get
