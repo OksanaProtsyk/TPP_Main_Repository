@@ -21,9 +21,8 @@ using System.Data.Entity;
 namespace TPP_MainProject.Controllers
 {
     public class AdminUserController : Controller
-    {
-          
-         private ApplicationUserManager _userManager;
+    {        
+        private ApplicationUserManager _userManager;
         private UnitOfWork unityOfWork = new UnitOfWork();
         ApplicationUser user;
 
@@ -308,11 +307,7 @@ namespace TPP_MainProject.Controllers
         {
             _db.Dispose();
             base.Dispose(disposing);
-        }
-
-      
-        
-       
+        }  
 
     }
 }

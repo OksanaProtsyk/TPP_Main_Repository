@@ -12,7 +12,7 @@ namespace TPP_MainProject.Models.repository
         private GenericRepository<Order> orderRepository;
         private GenericRepository<ApplicationUser> applicationRepository;
         private GenericRepository<Accountant> accountantRepository;
-
+        private GenericRepository<WorkItem> workItemRepository;
         public GenericRepository<Order> OrderRepository
         {
             get
@@ -23,6 +23,19 @@ namespace TPP_MainProject.Models.repository
                     this.orderRepository = new GenericRepository<Order>(context);
                 }
                 return orderRepository;
+            }
+        }
+
+        public GenericRepository<WorkItem> WorkItemRepository
+        {
+            get
+            {
+
+                if (this.workItemRepository == null)
+                {
+                    this.workItemRepository = new GenericRepository<WorkItem>(context);
+                }
+                return workItemRepository;
             }
         }
 
