@@ -129,15 +129,17 @@ namespace TPP_MainProject.Models
             if (!success) return success;
           * */
 
-/*            ApplicationUser user4 = new Programmer();
+            ApplicationUser user4 = new Programmer();
             PasswordHasher passwordHasher4 = new PasswordHasher();
-            user4.UserName = RolesConst.PROGRAMER;
-            user4.Email =    RolesConst.PROGRAMER + "@gmail.com";
+            user4.UserName = RolesConst.PROGRAMER + "@gmail.com";
+            user4.Email = RolesConst.PROGRAMER + "@gmail.com";
             user4.RoleName = RolesConst.PROGRAMER;
+            user4.FistName = RolesConst.PROGRAMER;
+            user4.LastName = RolesConst.PROGRAMER;
             IdentityResult result4 = userManager.Create(user4, "Pas@123");
             success = this.AddUserToRole(userManager, user4.Id, RolesConst.PROGRAMER);
             if (!success) return success;
- * */
+
             
 
 #endif

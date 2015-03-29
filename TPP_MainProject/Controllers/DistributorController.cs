@@ -18,12 +18,12 @@ namespace TPP_MainProject.Controllers
         // GET: /Distributor/
         public ActionResult Index()
         {
-            var rolesList = new List<RoleViewModel>();
-            foreach (var role in _db.Roles)
-            {
-                var roleModel = new RoleViewModel(role);
-                rolesList.Add(roleModel);
-            }
+            //var rolesList = new List<RoleViewModel>();
+            //foreach (var role in _db.Roles)
+            //{
+            //    var roleModel = new RoleViewModel(role);
+            //    rolesList.Add(roleModel);
+            //}
             if (User.IsInRole(RolesConst.ACCOUNTANT))
             {
                 return RedirectToAction("Index", RolesConst.ACCOUNTANT);
