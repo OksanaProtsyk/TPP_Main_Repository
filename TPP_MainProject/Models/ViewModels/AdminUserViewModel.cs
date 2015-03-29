@@ -37,8 +37,8 @@ namespace TPP_MainProject.Models.ViewModels
             this.FistName = user.FistName;
             this.LastName = user.LastName;
             this.Organization = user.Organization;
-            this.City = City;
-            this.Country = Country;
+            this.City = user.City;
+            this.Country = user.Country;
             this.Role = user.RoleName;
             this.Password = user.PasswordHash;
             this.RoleName = user.RoleName;

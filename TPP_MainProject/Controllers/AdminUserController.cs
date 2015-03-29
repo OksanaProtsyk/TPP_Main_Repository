@@ -52,7 +52,7 @@ namespace TPP_MainProject.Controllers
 
        
         //
-        // GET: /Account/Register
+        // GET: /Admin/Index
         [AllowAnonymous]
         public ActionResult Index()
         {
