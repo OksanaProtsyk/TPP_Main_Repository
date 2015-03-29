@@ -13,6 +13,7 @@ using Owin;
 using TPP_MainProject.Models;
 using TPP_MainProject.Models.entities;
 using TPP_MainProject.Models.repository;
+using TPP_MainProject.Models.constants;
 
 namespace TPP_MainProject.Controllers
 {
@@ -100,6 +101,7 @@ namespace TPP_MainProject.Controllers
                     Organization = model.Organization,
                     City = model.City,
                     Country = model.Country,
+                    RoleName = RolesConst.CUSTOMER
 
                 };
                
