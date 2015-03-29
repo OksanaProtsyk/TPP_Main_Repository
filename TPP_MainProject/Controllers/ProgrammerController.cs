@@ -8,31 +8,32 @@ using System.Web;
 using System.Web.Mvc;
 using TPP_MainProject.Models.entities;
 using TPP_MainProject.Models;
+using TPP_MainProject.Models.repository;
 
 namespace TPP_MainProject.Controllers
 {
-    public class WorkerController : Controller
+    public class ProgrammerController : Controller
     {
-      //  private ApplicationDbContext db = new ApplicationDbContext();
+        UnitOfWork unitOfWork = new UnitOfWork();
 
-        // GET: /Worker/
         public ActionResult Index()
         {
-            return View(); //db.Users.ToList()
+          
+            IEnumerable<WorkItem> workItems =  unitOfWork.WorkItemRepository.Get();
+            return View(workItems);
         }
 
-        // GET: /Worker/Details/5
         public ActionResult Details(string id)
         {
-            //if (id == null)
-            //{
-            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            //}
-            //Worker worker = db.Users.Find(id);
-            //if (worker == null)
-            //{
-            //    return HttpNotFound();
-            //}
+           if (id == null)
+            {
+               return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+           WorkItem workItem = unitOfWork.WorkItemRepository.GetByID(id);
+            if (workItem == null)
+            {
+                  return HttpNotFound();
+            }
             return View();
         }
 
