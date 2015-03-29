@@ -15,6 +15,8 @@ using TPP_MainProject.Models.entities;
 using TPP_MainProject.Models.repository;
 using TPP_MainProject.Models.ViewModels;
 using System.Collections.ObjectModel;
+using TPP_MainProject.Models.constants;
+using System.Data.Entity;
 
 namespace TPP_MainProject.Controllers
 {
@@ -23,6 +25,7 @@ namespace TPP_MainProject.Controllers
           
          private ApplicationUserManager _userManager;
         private UnitOfWork unityOfWork = new UnitOfWork();
+        ApplicationUser user;
 
         public AdminUserController()
         { }
@@ -34,7 +37,7 @@ namespace TPP_MainProject.Controllers
         public ApplicationUserManager UserManager {
             get
             {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                return HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
             }
             private set
             {
@@ -64,6 +67,7 @@ namespace TPP_MainProject.Controllers
 
         public ActionResult Create()
         {
+            ViewBag.roles = _db.Roles.ToList();
             return View();
         }
 
@@ -72,10 +76,140 @@ namespace TPP_MainProject.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(AdminUserViewModel model)
+         public ActionResult Create(AdminUserViewModel model)
         {
+
             if (ModelState.IsValid)
             {
+                var role = model.RoleName;
+
+                /*  
+                  switch (role)
+                  { 
+                          /*NEED TO CHANGE - gamnocode*/
+                /*
+                    case RolesConst.ADMIN:
+                        this.user = new ApplicationUser()
+                        {
+                            UserName = model.Email,
+                            Email = model.Email,
+                            FistName = model.FistName,
+                            LastName = model.LastName,
+                            Organization = model.Organization,
+                            City = model.City,
+                            Country = model.Country,
+                            RoleName = model.RoleName
+                        };
+                        break;
+                    case RolesConst.ACCOUNTANT:
+                        this.user = new Accountant()
+                        {
+                            UserName = model.Email,
+                            Email = model.Email,
+                            FistName = model.FistName,
+                            LastName = model.LastName,
+                            Organization = model.Organization,
+                            City = model.City,
+                            Country = model.Country,
+                            RoleName = model.RoleName
+                        };
+                        break;
+                    case RolesConst.RESOURSE_MANAGER:
+                        this.user = new ResourceManager()
+                        {
+                            UserName = model.Email,
+                            Email = model.Email,
+                            FistName = model.FistName,
+                            LastName = model.LastName,
+                            Organization = model.Organization,
+                            City = model.City,
+                            Country = model.Country,
+                            RoleName = model.RoleName
+                        };
+                        break;
+                    case RolesConst.CUSTOMER:
+                        this.user = new Customer()
+                        {
+                            UserName = model.Email,
+                            Email = model.Email,
+                            FistName = model.FistName,
+                            LastName = model.LastName,
+                            Organization = model.Organization,
+                            City = model.City,
+                            Country = model.Country,
+                            RoleName = model.RoleName
+                        };
+
+                        break;
+                    case RolesConst.HR:
+                        this.user = new HR()
+                        {
+                            UserName = model.Email,
+                            Email = model.Email,
+                            FistName = model.FistName,
+                            LastName = model.LastName,
+                            Organization = model.Organization,
+                            City = model.City,
+                            Country = model.Country,
+                            RoleName = model.RoleName
+                        };
+                        break;
+                    case RolesConst.MANAGER:
+                        this.user = new Manager()
+                        {
+                            UserName = model.Email,
+                            Email = model.Email,
+                            FistName = model.FistName,
+                            LastName = model.LastName,
+                            Organization = model.Organization,
+                            City = model.City,
+                            Country = model.Country,
+                            RoleName = model.RoleName
+                        };
+                        break;
+                    case RolesConst.OPERATOR:
+                        this.user = new Operator()
+                        {
+                            UserName = model.Email,
+                            Email = model.Email,
+                            FistName = model.FistName,
+                            LastName = model.LastName,
+                            Organization = model.Organization,
+                            City = model.City,
+                            Country = model.Country,
+                            RoleName = model.RoleName
+                        };
+                        break;
+                    case RolesConst.PROGRAMER:
+                        this.user = new Programmer()
+                        {
+                            UserName = model.Email,
+                            Email = model.Email,
+                            FistName = model.FistName,
+                            LastName = model.LastName,
+                            Organization = model.Organization,
+                            City = model.City,
+                            Country =
+                            model.Country,
+                            RoleName = model.RoleName
+                        };
+                        break;
+                    default:
+                        this.user = new Customer()
+                        {
+                            UserName = model.Email,
+                            Email = model.Email,
+                            FistName = model.FistName,
+                            LastName = model.LastName,
+                            Organization = model.Organization,
+                            City = model.City,
+                            Country = model.Country,
+                            RoleName = model.RoleName
+                        };
+                        break;
+
+                }
+               */
                 var user = new Customer()
                 {
                     UserName = model.Email,
@@ -85,71 +219,102 @@ namespace TPP_MainProject.Controllers
                     Organization = model.Organization,
                     City = model.City,
                     Country = model.Country,
+                    RoleName = model.RoleName
+
 
                 };
+                _db.Users.Add(user);
+                _db.SaveChanges();
+                _db.AddUserToRole(UserManager, user.Id, model.RoleName);
+                _db.SaveChanges();
 
-                IdentityResult result = await UserManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
-                {
-                    UserManager.AddToRole(user.Id, "Customer");
-                    user.RoleName = UserManager.GetRoles(user.Id).First();
-                    UserManager.Update(user);
-                    await SignInAsync(user, isPersistent: false);
+                return RedirectToAction("Index", "AdminUser");
 
-                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Home");
-                }
-                else
-                {
-                    AddErrors(result);
-                }
-            }
+                // If we got this far, something failed, redisplay form
 
-            // If we got this far, something failed, redisplay form
-            return View(model);
-        }
-
-   
-        // Used for XSRF protection when adding external logins
-        private const string XsrfKey = "XsrfId";
-
-        private IAuthenticationManager AuthenticationManager
-        {
-            get
-            {
-                return HttpContext.GetOwinContext().Authentication;
-            }
-        }
-
-        private async Task SignInAsync(ApplicationUser user, bool isPersistent)
-        {
-            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
-            AuthenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = isPersistent }, await user.GenerateUserIdentityAsync(UserManager));
-        }
-
-        private void AddErrors(IdentityResult result)
-        {
-            foreach (var error in result.Errors)
-            {
-                ModelState.AddModelError("", error);
-            }
-        }
-        private ActionResult RedirectToLocal(string returnUrl)
-        {
-            if (Url.IsLocalUrl(returnUrl))
-            {
-                return Redirect(returnUrl);
             }
             else
-            {
-                return RedirectToAction("Index", "Home");
-            }
+                return View();
         }
+
+        //
+        // GET: /Department/Details/5
+
+        public ActionResult Details(string id = "")
+        {
+            ApplicationUser user = _db.Users.Find(id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            return View(user);
+        }
+        //
+        // GET: /Department/Edit/5
+
+        public ActionResult Edit(string id = "")
+        {
+            ApplicationUser user = _db.Users.Find(id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+           
+            return View(user);
+        }
+
+        //
+        // POST: /Department/Edit/5
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(ApplicationUser user)
+        {
+            if (ModelState.IsValid)
+            {
+                _db.Entry(user).State = EntityState.Modified;
+               _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(user);
+        }
+
+        //
+        // GET: /Department/Delete/5
+
+        public ActionResult Delete(string id = "")
+        {
+            ApplicationUser department = _db.Users.Find(id);
+            if (department == null)
+            {
+                return HttpNotFound();
+            }
+            return View(department);
+        }
+
+        //
+        // POST: /Department/Delete/5
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(string id)
+        {
+            ApplicationUser user = _db.Users.Find(id);
+            _db.Users.Remove(user);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            _db.Dispose();
+            base.Dispose(disposing);
+        }
+
+      
+        
+       
 
     }
 }

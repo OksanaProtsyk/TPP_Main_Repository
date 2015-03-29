@@ -7,11 +7,15 @@ namespace TPP_MainProject.Models.constants
 {
     public static class RolesConst
     {
-        public static string ACCOUNTANT = "Accountant";
+        public  const string ACCOUNTANT = "Accountant";
        // public static string WORKER = "Worker";
-        public static string ADMIN = "Admin";
-        public static string CUSTOMER = "Customer";
-        public static string CAN_EDIT = "CanEdit";
-        public static string PROGRAMER = "Programer";
+        public const string ADMIN = "Admin";
+        public const string CUSTOMER = "Customer";
+        public const string PROGRAMER = "Programer";
+        public const string HR = "HR";
+        public const string MANAGER = "Manager";
+        public const string OPERATOR = "Operator";
+        public const string RESOURSE_MANAGER = "ResourceManager";
+
     }
 }

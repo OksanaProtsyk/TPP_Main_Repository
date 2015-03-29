@@ -77,12 +77,19 @@ namespace TPP_MainProject.Models
             if (!success == true) return success;
             success = this.CreateRole(_roleManager, RolesConst.CUSTOMER, "Customer");
             if (!success == true) return success;
-            success = this.CreateRole(_roleManager, RolesConst.CAN_EDIT, "Edit existing records");
-            if (!success == true) return success;
             success = this.CreateRole(_roleManager, RolesConst.ACCOUNTANT, "Pidrahyu");
             if (!success == true) return success;
             success = this.CreateRole(_roleManager, RolesConst.PROGRAMER, "Make work");
             if (!success == true) return success;
+            success = this.CreateRole(_roleManager, RolesConst.HR, "Human Resourse Management");
+            if (!success == true) return success;
+            success = this.CreateRole(_roleManager, RolesConst.OPERATOR, "Proceed Orders");
+            if (!success == true) return success;
+            success = this.CreateRole(_roleManager, RolesConst.RESOURSE_MANAGER, "Manage Resourses");
+            if (!success == true) return success;
+           
+
+
 
 
             // Create my debug (testing) objects here
@@ -91,37 +98,47 @@ namespace TPP_MainProject.Models
 
             ApplicationUser user = new ApplicationUser();
             PasswordHasher passwordHasher = new PasswordHasher();
-            user.UserName = "youremail@testemail.com";
-            user.Email = "youremail@testemail.com";
-            IdentityResult result = userManager.Create(user, "Pass@123");
+            user.UserName = "admin@admin.com";
+            user.Email = "admin@admin.com";
+            user.RoleName = RolesConst.ADMIN;
+            user.FistName = RolesConst.ADMIN;
+            user.LastName = RolesConst.ADMIN;
+            IdentityResult result = userManager.Create(user, "Pas@123");
             success = this.AddUserToRole(userManager, user.Id, RolesConst.ADMIN);
             if (!success) return success;
-            success = this.AddUserToRole(userManager, user.Id, "CanEdit");
-            if (!success) return success;
+         
 
-            ApplicationUser user2 = new ApplicationUser();
+            ApplicationUser user2 = new Customer();
             PasswordHasher passwordHasher2 = new PasswordHasher();
             user2.UserName = "okpr@gmail.com";
+            user2.RoleName = RolesConst.CUSTOMER;
             user2.Email = "okpr@gmail.com";
+             user2.FistName = RolesConst.CUSTOMER;
+             user2.LastName = RolesConst.CUSTOMER;
             IdentityResult result2 = userManager.Create(user2, "Pas@123");
             success = this.AddUserToRole(userManager, user2.Id, RolesConst.CUSTOMER);
             if (!success) return success;
 
-            ApplicationUser user3 = new ApplicationUser();
+         /*   ApplicationUser user3 = new Accountant();
             PasswordHasher passwordHasher3 = new PasswordHasher();
-            user3.UserName = "accounter@i.com";
-            user3.Email = "accounter@i.com";
+            user3.UserName = "accounter@gmail.com";
+            user3.Email = "accounter@gmail.com";
+            user3.RoleName = RolesConst.ACCOUNTANT;
             IdentityResult result3 = userManager.Create(user3, "Pas@123");
             success = this.AddUserToRole(userManager, user3.Id, RolesConst.ACCOUNTANT);
             if (!success) return success;
+          * */
 
-            ApplicationUser user4 = new ApplicationUser();
+/*            ApplicationUser user4 = new Programmer();
             PasswordHasher passwordHasher4 = new PasswordHasher();
             user4.UserName = RolesConst.PROGRAMER;
-            user4.Email =    RolesConst.PROGRAMER + "@i.com";
+            user4.Email =    RolesConst.PROGRAMER + "@gmail.com";
+            user4.RoleName = RolesConst.PROGRAMER;
             IdentityResult result4 = userManager.Create(user4, "Pas@123");
             success = this.AddUserToRole(userManager, user4.Id, RolesConst.PROGRAMER);
             if (!success) return success;
+ * */
+            
 
 #endif
             return success;
