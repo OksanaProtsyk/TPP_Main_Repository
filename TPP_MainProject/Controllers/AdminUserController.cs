@@ -222,9 +222,10 @@ namespace TPP_MainProject.Controllers
                     RoleName = model.RoleName
 
 
+
                 };
-                _db.Users.Add(user);
-                _db.SaveChanges();
+   
+                IdentityResult result =  UserManager.Create(user, model.Password);
                 _db.AddUserToRole(UserManager, user.Id, model.RoleName);
                 _db.SaveChanges();
 

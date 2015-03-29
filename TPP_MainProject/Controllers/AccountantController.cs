@@ -20,10 +20,7 @@ namespace TPP_MainProject.Controllers
         //// GET: /Accountant/
         public ActionResult Index()
         {
-            IEnumerable<Accountant> accountants =  db.Get();
-            foreach (Accountant acc in accountants){
-             
-            }
+           
             return View();
         }
 
