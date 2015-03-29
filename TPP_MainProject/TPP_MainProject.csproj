@@ -165,8 +165,9 @@
     <Compile Include="Controllers\AdminUserController.cs" />
     <Compile Include="Controllers\DistributorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OperatorController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
-    <Compile Include="Controllers\WorkerController.cs" />
+    <Compile Include="Controllers\ProgrammerController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -194,6 +195,7 @@
     <Compile Include="Models\repository\UnitOfWork.cs" />
     <Compile Include="Models\ViewModels\AdminUserViewModel.cs" />
     <Compile Include="Models\ViewModels\RoleViewModel.cs" />
+    <Compile Include="Models\ViewModels\WorkItemViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -259,16 +261,18 @@
     <Content Include="Views\Accountant\Details.cshtml" />
     <Content Include="Views\Accountant\Edit.cshtml" />
     <Content Include="Views\Accountant\Index.cshtml" />
-    <Content Include="Views\Worker\Create.cshtml" />
-    <Content Include="Views\Worker\Delete.cshtml" />
-    <Content Include="Views\Worker\Details.cshtml" />
-    <Content Include="Views\Worker\Edit.cshtml" />
-    <Content Include="Views\Worker\Index.cshtml" />
     <Content Include="Views\AdminUser\Create.cshtml" />
     <Content Include="Views\AdminUser\Index.cshtml" />
     <Content Include="Views\AdminUser\Details.cshtml" />
     <Content Include="Views\AdminUser\Edit.cshtml" />
     <Content Include="Views\AdminUser\Delete.cshtml" />
+    <Content Include="Views\Programmer\Index.cshtml" />
+    <Content Include="Views\Programmer\Details.cshtml" />
+    <Content Include="Views\Operator\Create.cshtml" />
+    <Content Include="Views\Operator\Delete.cshtml" />
+    <Content Include="Views\Operator\Details.cshtml" />
+    <Content Include="Views\Operator\Edit.cshtml" />
+    <Content Include="Views\Operator\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

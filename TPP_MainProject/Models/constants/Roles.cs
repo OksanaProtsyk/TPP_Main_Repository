@@ -11,7 +11,7 @@ namespace TPP_MainProject.Models.constants
        // public static string WORKER = "Worker";
         public const string ADMIN = "Admin";
         public const string CUSTOMER = "Customer";
-        public const string PROGRAMER = "Programer";
+        public const string PROGRAMER = "Programmer";
         public const string HR = "HR";
         public const string MANAGER = "Manager";
         public const string OPERATOR = "Operator";
