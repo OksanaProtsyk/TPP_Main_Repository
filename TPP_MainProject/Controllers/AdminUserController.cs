@@ -220,9 +220,6 @@ namespace TPP_MainProject.Controllers
                     City = model.City,
                     Country = model.Country,
                     RoleName = model.RoleName
-
-
-
                 };
    
                 IdentityResult result =  UserManager.Create(user, model.Password);
