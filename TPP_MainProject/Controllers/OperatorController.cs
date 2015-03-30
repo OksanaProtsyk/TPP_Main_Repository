@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using TPP_MainProject.Models;
+using TPP_MainProject.Models.constants;
 using TPP_MainProject.Models.entities;
 using TPP_MainProject.Models.repository;
 using TPP_MainProject.Models.ViewModels;
@@ -22,6 +23,18 @@ namespace TPP_MainProject.Controllers
         public ActionResult Index()
         {
             IEnumerable<WorkItem> workItems = unitOfWork.WorkItemRepository.Get().ToList();
+
+            /*var @workItem = new WorkItem()
+            {
+                Id = 0,
+                Name = "DefaultWorkItem",
+                Description = "DefaultWorkItemDescription",
+                DueDate = new DateTime().ToLocalTime(),
+                Status = TaskStatus.Completed,
+            };
+
+            unitOfWork.WorkItemRepository.Insert(@workItem);*/
+
             return View(workItems);
         }
 
@@ -52,24 +65,24 @@ namespace TPP_MainProject.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(WorkItemViewModel model)
         {
-            if (ModelState.IsValid)
-            {
+            //if (ModelState.IsValid)
+            //{
                 var @workItem = new WorkItem() {
-                    //id = model.Id,
-                    name = model.Name,
-                    description = model.Description,
-                    dueDate = model.DueDate,
-                    status = model.Status,
-                    assignedWorker = model.AssignedWorker,
+                    Id = model.Id,
+                    Name = model.Name,
+                    Description = model.Description,
+                    DueDate = model.DueDate,
+                    Status = model.Status,
+                    AssignedWorker = model.AssignedWorker,
                     assignedProject = model.AssignedProject
                 };
 
                 unitOfWork.WorkItemRepository.Insert(@workItem);
 
                 return RedirectToAction("Index", "Operator");
-            }
+            //}
 
-            return View();
+            //return View();
         }
 
         // GET: Operator/Edit/5

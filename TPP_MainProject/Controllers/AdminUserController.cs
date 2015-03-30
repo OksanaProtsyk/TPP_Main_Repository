@@ -271,6 +271,8 @@ namespace TPP_MainProject.Controllers
             if (ModelState.IsValid)
             {
                 _db.Entry(user).State = EntityState.Modified;
+
+                // TODO
                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
