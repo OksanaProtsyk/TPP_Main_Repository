@@ -13,6 +13,21 @@ namespace TPP_MainProject.Models.repository
         private GenericRepository<ApplicationUser> applicationRepository;
         private GenericRepository<Accountant> accountantRepository;
         private GenericRepository<WorkItem> workItemRepository;
+        private GenericRepository<Resourse> resourceRepository;
+
+        public GenericRepository<Resourse> ResourceRepository
+        {
+            get
+            {
+
+                if (this.resourceRepository == null)
+                {
+                    this.resourceRepository = new GenericRepository<Resourse>(context);
+                }
+                return resourceRepository;
+            }
+        }
+
         public GenericRepository<Order> OrderRepository
         {
             get

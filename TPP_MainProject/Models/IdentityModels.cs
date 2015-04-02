@@ -212,5 +212,7 @@ namespace TPP_MainProject.Models
         public System.Data.Entity.DbSet<TPP_MainProject.Models.entities.Worker> Workers { get; set; }
 
         public System.Data.Entity.DbSet<TPP_MainProject.Models.entities.Operator> ApplicationUsers { get; set; }
+
+        public System.Data.Entity.DbSet<TPP_MainProject.Models.entities.Resourse> Resource { get; set; }
     }   
 }
