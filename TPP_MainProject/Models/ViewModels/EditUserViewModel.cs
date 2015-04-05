@@ -10,20 +10,20 @@ namespace TPP_MainProject.Models.ViewModels
     public class EditUserViewModel
     {
         // public string UserName { get; set; }
-       //  [Required]
+        //  [Required]
         //public string Email { get; set; }
-         [Required]
+        [Required]
         public string FistName { get; set; }
-         [Required]
+        [Required]
         public string LastName { get; set; }
         public string Organization { get; set; }
         public string City { get; set; }
         public string Country { get; set; }
-       // [Required]
-      //  public string Password { get; set; }
+        // [Required]
+        //  public string Password { get; set; }
         public string Role { get; set; }
         [Required]
-       // public string RoleName { get; set; }
+        // public string RoleName { get; set; }
         public string Id { get; set; }
 
 
@@ -32,7 +32,7 @@ namespace TPP_MainProject.Models.ViewModels
         {
 
             //this.UserName = user.UserName;
-           // this.Email = user.Email;
+            // this.Email = user.Email;
             this.FistName = user.FistName;
             this.LastName = user.LastName;
             this.Organization = user.Organization;
