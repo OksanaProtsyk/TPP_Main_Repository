@@ -87,6 +87,9 @@ namespace TPP_MainProject.Models
             if (!success == true) return success;
             success = this.CreateRole(_roleManager, RolesConst.RESOURSE_MANAGER, "Manage Resourses");
             if (!success == true) return success;
+            success = this.CreateRole(_roleManager, RolesConst.MANAGER, "Manager");
+            if (!success == true) return success;
+
            
 
 
@@ -124,6 +127,8 @@ namespace TPP_MainProject.Models
             user3.UserName = "accounter@gmail.com";
             user3.Email = "accounter@gmail.com";
             user3.RoleName = RolesConst.ACCOUNTANT;
+            user3.FistName = RolesConst.ACCOUNTANT;
+            user3.LastName = RolesConst.ACCOUNTANT;
             IdentityResult result3 = userManager.Create(user3, "Pas@123");
             success = this.AddUserToRole(userManager, user3.Id, RolesConst.ACCOUNTANT);
             if (!success) return success;
@@ -134,6 +139,8 @@ namespace TPP_MainProject.Models
             user4.UserName = "programmer@gmail.com";
             user4.Email =   "programmer@gmail.com";
             user4.RoleName = RolesConst.PROGRAMER;
+            user4.FistName = RolesConst.PROGRAMER;
+            user4.LastName = RolesConst.PROGRAMER;
             IdentityResult result4 = userManager.Create(user4, "Pas@123");
             success = this.AddUserToRole(userManager, user4.Id, RolesConst.PROGRAMER);
             if (!success) return success;

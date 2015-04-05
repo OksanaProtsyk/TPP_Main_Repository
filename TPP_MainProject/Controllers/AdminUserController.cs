@@ -257,8 +257,9 @@ namespace TPP_MainProject.Controllers
             {
                 return HttpNotFound();
             }
-           
-            return View(user);
+            EditUserViewModel model = new EditUserViewModel(user);
+            ViewBag.roles = _db.Roles.ToList();
+            return View(model);
         }
 
         //
@@ -266,17 +267,31 @@ namespace TPP_MainProject.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(ApplicationUser user)
+        public ActionResult Edit(EditUserViewModel model)
         {
             if (ModelState.IsValid)
             {
-                _db.Entry(user).State = EntityState.Modified;
+               ApplicationUser user =unityOfWork.UserRepository.GetByID(model.Id);
+               user.LastName = model.LastName;
+               user.FistName = model.FistName;
+               user.Country = model.Country;
+               user.City = model.City;
+               user.Organization = model.Organization;
+               if (user.RoleName != model.Role)
+               {
+                   _db.RemoveFromRole(UserManager, user.Id, model.Role);
+                   user.RoleName = model.Role;
+                   _db.AddUserToRole(UserManager, user.Id, model.Role);
+               }
+                unityOfWork.Save();
+
+               // _db.Entry(user).State = EntityState.Modified;
 
                 // TODO
-               _db.SaveChanges();
+              // _db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(user);
+            return View(model);
         }
 
         //

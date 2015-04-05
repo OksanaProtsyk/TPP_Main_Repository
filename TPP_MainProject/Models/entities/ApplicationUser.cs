@@ -21,9 +21,9 @@ namespace TPP_MainProject.Models.entities
         }
         public ICollection<ApplicationUserRole> UserRoles { get; set; }
 
-        //[Required]
+        [Required]
         public string FistName { get; set; }
-        //[Required]
+        [Required]
         public string LastName { get; set; }
         public string Organization { get; set; }
         public string City { get; set; }
