@@ -220,8 +220,9 @@ namespace TPP_MainProject.Controllers
                     Country = model.Country,
                     RoleName = model.RoleName
                 };
-   
                 IdentityResult result =  UserManager.Create(user, model.Password);
+                _db.Users.Add(user);
+                _db.SaveChanges();
                 _db.AddUserToRole(UserManager, user.Id, model.RoleName);
                 _db.SaveChanges();
 
