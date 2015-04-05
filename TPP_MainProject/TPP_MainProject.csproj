@@ -282,9 +282,6 @@
     <Content Include="Views\ResourceManagers\Details.cshtml" />
     <Content Include="Views\ResourceManagers\Edit.cshtml" />
     <Content Include="Views\ResourceManagers\Index.cshtml" />
-    <Content Include="Views\Home\Order.cshtml" />
-    <Content Include="Views\Home\Customer.cshtml" />
-    <Content Include="Views\Home\CustomerSent.cshtml" />
     <Content Include="Views\SalesManager\Create.cshtml" />
     <Content Include="Views\SalesManager\Delete.cshtml" />
     <Content Include="Views\SalesManager\Details.cshtml" />

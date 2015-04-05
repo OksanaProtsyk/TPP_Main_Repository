@@ -91,12 +91,6 @@ namespace TPP_MainProject.Models
             if (!success == true) return success;
             success = this.CreateRole(_roleManager, RolesConst.MANAGER, "Manager");
             if (!success == true) return success;
-
-          
-
-
-
-
             // Create my debug (testing) objects here
 
             ApplicationUserManager userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(context));
@@ -156,6 +150,18 @@ namespace TPP_MainProject.Models
             IdentityResult result5 = userManager.Create(user5, "Pas@123");
             success = this.AddUserToRole(userManager, user5.Id, RolesConst.OPERATOR);
             if (!success) return success;
+
+            ApplicationUser user6 = new ApplicationUser();
+            PasswordHasher passwordHasher6 = new PasswordHasher();
+            user6.UserName = "sales@gmail.com";
+            user6.Email = "sales@gmail.com";
+            user6.RoleName = RolesConst.Sales_MANAGER;
+            user6.FistName = RolesConst.Sales_MANAGER;
+            user6.LastName = RolesConst.Sales_MANAGER;
+            IdentityResult result6 = userManager.Create(user6, "Pas@123");
+            success = this.AddUserToRole(userManager, user6.Id, RolesConst.Sales_MANAGER);
+            if (!success) return success;
+
 
 #endif
             return success;
