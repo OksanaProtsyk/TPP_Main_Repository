@@ -87,7 +87,8 @@ namespace TPP_MainProject.Models
             if (!success == true) return success;
             success = this.CreateRole(_roleManager, RolesConst.RESOURSE_MANAGER, "Manage Resourses");
             if (!success == true) return success;
-           
+            success = this.CreateRole(_roleManager, RolesConst.Sales_MANAGER, "Sales Manager");
+            if (!success == true) return success;
 
 
 
@@ -216,5 +217,7 @@ namespace TPP_MainProject.Models
         public System.Data.Entity.DbSet<TPP_MainProject.Models.entities.Resourse> Resource { get; set; }
 
         public System.Data.Entity.DbSet<TPP_MainProject.Models.entities.Order> Orders { get; set; }
+
+        public System.Data.Entity.DbSet<TPP_MainProject.Models.entities.ProductItem> ProductItems { get; set; }
     }   
 }
