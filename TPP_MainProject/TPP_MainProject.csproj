@@ -192,6 +192,7 @@
     <Compile Include="Models\entities\WorkItem.cs" />
     <Compile Include="Models\entities\Worker.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\CustomerModel.cs" />
     <Compile Include="Models\repository\GenericRepository.cs" />
     <Compile Include="Models\repository\UnitOfWork.cs" />
     <Compile Include="Models\ViewModels\AdminUserViewModel.cs" />
@@ -279,6 +280,9 @@
     <Content Include="Views\ResourceManagers\Details.cshtml" />
     <Content Include="Views\ResourceManagers\Edit.cshtml" />
     <Content Include="Views\ResourceManagers\Index.cshtml" />
+    <Content Include="Views\Home\Order.cshtml" />
+    <Content Include="Views\Home\Customer.cshtml" />
+    <Content Include="Views\Home\CustomerSent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
