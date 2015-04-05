@@ -1,4 +1,4 @@
-﻿@model TPP_MainProject.Models.entities.Operator
+﻿@model TPP_MainProject.Models.entities.WorkItem
 
 @{
     ViewBag.Title = "Details";
@@ -7,164 +7,60 @@
 <h2>Details</h2>
 
 <div>
-    <h4>Operator</h4>
+    <h4>WorkItem</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.FistName)
+            @Html.DisplayNameFor(model => model.Name)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.FistName)
+            @Html.DisplayFor(model => model.Name)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.LastName)
+            @Html.DisplayNameFor(model => model.Description)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.LastName)
+            @Html.DisplayFor(model => model.Description)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Organization)
+            @Html.DisplayNameFor(model => model.DueDate)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Organization)
+            @Html.DisplayFor(model => model.DueDate)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.City)
+            @Html.DisplayNameFor(model => model.Status)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.City)
+            @Html.DisplayFor(model => model.Status)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Country)
+            @Html.DisplayNameFor(model => model.AssignedWorker)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Country)
+            @Html.DisplayFor(model => model.AssignedWorker)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.RoleName)
+            @Html.DisplayNameFor(model => model.assignedProject)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.RoleName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.EmailConfirmed)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.EmailConfirmed)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PasswordHash)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PasswordHash)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SecurityStamp)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SecurityStamp)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PhoneNumber)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PhoneNumber)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PhoneNumberConfirmed)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PhoneNumberConfirmed)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TwoFactorEnabled)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TwoFactorEnabled)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.LockoutEndDateUtc)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.LockoutEndDateUtc)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.LockoutEnabled)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.LockoutEnabled)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.AccessFailedCount)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AccessFailedCount)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.UserName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.UserName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Salary)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Salary)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.startWorkDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.startWorkDate)
+            @Html.DisplayFor(model => model.assignedProject)
         </dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Edit", "Edit", new { }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
