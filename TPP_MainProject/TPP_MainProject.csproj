@@ -278,12 +278,12 @@
     <Content Include="Views\Operator\Index.cshtml" />
     <Content Include="Views\ResourceManagers\Create.cshtml" />
     <Content Include="Views\ResourceManagers\Delete.cshtml" />
-    <Content Include="Views\ResourceManagers\Details.cshtml" />
-    <Content Include="Views\ResourceManagers\Edit.cshtml" />
     <Content Include="Views\ResourceManagers\Index.cshtml" />
     <Content Include="Views\Home\Order.cshtml" />
     <Content Include="Views\Home\Customer.cshtml" />
     <Content Include="Views\Home\CustomerSent.cshtml" />
+    <Content Include="Views\ResourceManagers\Edit.cshtml" />
+    <Content Include="Views\ResourceManagers\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

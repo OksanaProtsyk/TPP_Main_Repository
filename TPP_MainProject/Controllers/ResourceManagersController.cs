@@ -14,18 +14,17 @@ namespace TPP_MainProject.Controllers
 {
     public class ResourceManagersController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
         UnitOfWork unitOfWork = new UnitOfWork();
 
         // GET: ResourceManagers
         public ActionResult Index()
         {
-            var resourceItems = unitOfWork.ResourceRepository.Get();
-            return View(resourceItems.ToList());
+            IEnumerable<Resourse> resourceItems = unitOfWork.ResourceRepository.Get().ToList<Resourse>();
+            return View(resourceItems);
         }
 
         // GET: ResourceManagers/Details/5
-        public ActionResult Details(string id)
+        public ActionResult Details(int id)
         {
             if (id == null)
             {
@@ -42,6 +41,7 @@ namespace TPP_MainProject.Controllers
         // GET: ResourceManagers/Create
         public ActionResult Create()
         {
+            ViewBag.resourses = unitOfWork.ResourceRepository.Get().ToList();
             return View();
         }
 
@@ -50,20 +50,17 @@ namespace TPP_MainProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Price,Description")] Resourse resourceItem)
+        public ActionResult Create( Resourse resourceItem)
         {
-            if (ModelState.IsValid)
-            {
-                //unitOfWork.ResourceRepository.insert(resourceItem);
-                //db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+            
+                unitOfWork.ResourceRepository.Insert(resourceItem);
+                unitOfWork.Save();
 
-            return View(resourceItem);
+                return RedirectToAction("Index", "ResourceManagers");
         }
 
         // GET: ResourceManagers/Edit/5
-        public ActionResult Edit(string id)
+        public ActionResult Edit(int id)
         {
             if (id == null)
             {
@@ -82,11 +79,13 @@ namespace TPP_MainProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Price,Description")] Resourse resourceItem)
+        public ActionResult Edit( Resourse resourceItem)
         {
             if (ModelState.IsValid)
             {
-              //  db.Entry(resourceItem).State = EntityState.Modified;
+               unitOfWork.ResourceRepository.Update(resourceItem);
+               unitOfWork.Save();
+               
               //  db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -94,7 +93,7 @@ namespace TPP_MainProject.Controllers
         }
 
         // GET: ResourceManagers/Delete/5
-        public ActionResult Delete(string id)
+        public ActionResult Delete(int id)
         {
             if (id == null)
             {
@@ -111,21 +110,14 @@ namespace TPP_MainProject.Controllers
         // POST: ResourceManagers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult DeleteConfirmed(int id)
         {
             Resourse resource = unitOfWork.ResourceRepository.GetByID(id);
-            //unitOfWork.ResourceRepository.Delete(resource);
-            //db.SaveChanges();
+            unitOfWork.ResourceRepository.Delete(resource);
+            unitOfWork.Save();
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+    
     }
 }

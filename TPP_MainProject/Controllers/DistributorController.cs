@@ -38,7 +38,7 @@ namespace TPP_MainProject.Controllers
             }
             if (User.IsInRole(RolesConst.RESOURSE_MANAGER))
             {
-                return RedirectToAction("Index", RolesConst.RESOURSE_MANAGER);
+                return RedirectToAction("Index", RolesConst.RESOURSE_MANAGER+"s");
             }
             //_db.Dispose();
              return RedirectToAction("About", "Home");;
