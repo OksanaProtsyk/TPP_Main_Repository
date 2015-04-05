@@ -197,6 +197,7 @@
     <Compile Include="Models\repository\GenericRepository.cs" />
     <Compile Include="Models\repository\UnitOfWork.cs" />
     <Compile Include="Models\ViewModels\AdminUserViewModel.cs" />
+    <Compile Include="Models\ViewModels\EditUserViewModel.cs" />
     <Compile Include="Models\ViewModels\RoleViewModel.cs" />
     <Compile Include="Models\ViewModels\WorkItemViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
