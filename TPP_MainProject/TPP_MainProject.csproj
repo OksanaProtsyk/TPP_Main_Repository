@@ -169,6 +169,7 @@
     <Compile Include="Controllers\ResourceManagersController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\ProgrammerController.cs" />
+    <Compile Include="Controllers\SalesManagerController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -278,12 +279,17 @@
     <Content Include="Views\Operator\Index.cshtml" />
     <Content Include="Views\ResourceManagers\Create.cshtml" />
     <Content Include="Views\ResourceManagers\Delete.cshtml" />
+    <Content Include="Views\ResourceManagers\Details.cshtml" />
+    <Content Include="Views\ResourceManagers\Edit.cshtml" />
     <Content Include="Views\ResourceManagers\Index.cshtml" />
     <Content Include="Views\Home\Order.cshtml" />
     <Content Include="Views\Home\Customer.cshtml" />
     <Content Include="Views\Home\CustomerSent.cshtml" />
-    <Content Include="Views\ResourceManagers\Edit.cshtml" />
-    <Content Include="Views\ResourceManagers\Details.cshtml" />
+    <Content Include="Views\SalesManager\Create.cshtml" />
+    <Content Include="Views\SalesManager\Delete.cshtml" />
+    <Content Include="Views\SalesManager\Details.cshtml" />
+    <Content Include="Views\SalesManager\Edit.cshtml" />
+    <Content Include="Views\SalesManager\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
