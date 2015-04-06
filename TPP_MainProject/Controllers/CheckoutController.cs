@@ -37,14 +37,16 @@ namespace TPP_MainProject.Controllers
                 }
                 else
                 {*/
-                    order.customer.UserName = User.Identity.Name;
+                   // order.customer.UserName = User.Identity.Name;
                     order.orderDate = DateTime.Now;
+                    
+                  
 
                     //Save Order
                     unitOfWork.OrderRepository.Insert(order);
                     unitOfWork.Save();
                     //Process the order
-                    var cart = OrderCart.GetCart(this.HttpContext);
+                    var cart = OrderCart.GetCart(this);
                     cart.CreateOrder(order);
 
                     return RedirectToAction("Complete",

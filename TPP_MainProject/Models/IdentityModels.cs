@@ -162,6 +162,57 @@ namespace TPP_MainProject.Models
             IdentityResult result6 = userManager.Create(user6, "Pas@123");
             success = this.AddUserToRole(userManager, user6.Id, RolesConst.Sales_MANAGER);
             if (!success) return success;
+            ApplicationUser user7 = new ApplicationUser();
+            PasswordHasher passwordHasher7 = new PasswordHasher();
+            user7.UserName = "sales2@gmail.com";
+            user7.Email = "sales2@gmail.com";
+            user7.RoleName = RolesConst.Sales_MANAGER;
+            user7.FistName = RolesConst.Sales_MANAGER;
+            user7.LastName = RolesConst.Sales_MANAGER;
+            IdentityResult result7 = userManager.Create(user7, "Pas@123");
+            success = this.AddUserToRole(userManager, user7.Id, RolesConst.Sales_MANAGER);
+            if (!success) return success;
+            ApplicationUser user8 = new ApplicationUser();
+            PasswordHasher passwordHasher8 = new PasswordHasher();
+            user8.UserName = "customer1@gmail.com";
+            user8.Email = "customer1@gmail.com";
+            user8.RoleName = RolesConst.CUSTOMER;
+            user8.FistName = RolesConst.CUSTOMER;
+            user8.LastName = RolesConst.CUSTOMER;
+            IdentityResult result8 = userManager.Create(user8, "Pas@123");
+            success = this.AddUserToRole(userManager, user8.Id, RolesConst.CUSTOMER);
+            if (!success) return success;
+            ApplicationUser user9 = new ApplicationUser();
+            PasswordHasher passwordHasher9 = new PasswordHasher();
+            user9.UserName = "customer2@gmail.com";
+            user9.Email = "customer2@gmail.com";
+            user9.RoleName = RolesConst.CUSTOMER;
+            user9.FistName = RolesConst.CUSTOMER;
+            user9.LastName = RolesConst.CUSTOMER;
+            IdentityResult result9 = userManager.Create(user9, "Pas@123");
+            success = this.AddUserToRole(userManager, user9.Id, RolesConst.CUSTOMER);
+            if (!success) return success;
+            ApplicationUser user10 = new ApplicationUser();
+            PasswordHasher passwordHasher10 = new PasswordHasher();
+            user10.UserName = "customer3@gmail.com";
+            user10.Email = "customer3@gmail.com";
+            user10.RoleName = RolesConst.CUSTOMER;
+            user10.FistName = RolesConst.CUSTOMER;
+            user10.LastName = RolesConst.CUSTOMER;
+            IdentityResult result10 = userManager.Create(user10, "Pas@123");
+            success = this.AddUserToRole(userManager, user10.Id, RolesConst.CUSTOMER);
+            if (!success) return success;
+            ApplicationUser user11 = new ApplicationUser();
+            PasswordHasher passwordHaser11 = new PasswordHasher();
+            user11.UserName = "customer4@gmail.com";
+            user11.Email = "customer4@gmail.com";
+            user11.RoleName = RolesConst.Sales_MANAGER;
+            user11.FistName = RolesConst.Sales_MANAGER;
+            user11.LastName = RolesConst.Sales_MANAGER;
+            IdentityResult result11 = userManager.Create(user11, "Pas@123");
+            success = this.AddUserToRole(userManager, user11.Id, RolesConst.CUSTOMER);
+            if (!success) return success;
+
             ProductItem item1 = new ProductItem()
             {
                 name = "Шаблон 1",

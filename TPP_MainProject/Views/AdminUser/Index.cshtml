@@ -1,5 +1,5 @@
-﻿@model IEnumerable<TPP_MainProject.Models.ViewModels.AdminUserViewModel>
-
+﻿@model  PagedList.IPagedList<TPP_MainProject.Models.ViewModels.AdminUserViewModel>
+@using PagedList.Mvc; 
 @{
     ViewBag.Title = "Application Users";
 }
@@ -9,32 +9,39 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+@using (Html.BeginForm("Index", "AdminUser", FormMethod.Get))
+{
+    <p>
+        Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Search" style="background:#0B610B; color:#fff;" />
+    </p>
+}
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.UserName)
-
+            
+            @Html.ActionLink("User Name", "Index", new { sortOrder = ViewBag.NameSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Email)
+            Email
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FistName)
+            FirstName
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.LastName)
+            LastName
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Organization)
+           Organization
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.City)
+            City
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Country)
+            Country
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Role)
+            @Html.ActionLink("Role", "Index", new { sortOrder = ViewBag.RoleSortParm })
         </th>
         <th></th>
     </tr>
@@ -76,3 +83,7 @@
     }
 
 </table>
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

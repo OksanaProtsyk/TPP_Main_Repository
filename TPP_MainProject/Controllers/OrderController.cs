@@ -54,6 +54,19 @@ namespace TPP_MainProject.Controllers
             // Go back to the main store page for more shopping
             return RedirectToAction("Index");
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create( Order order)
+        {
+            if (ModelState.IsValid)
+            {
+                unitOfWork.OrderRepository.Insert(order);
+                unitOfWork.Save();
+                return RedirectToAction("Index");
+            }
+
+            return View(order);
+        }
         //
         // AJAX: /Order/RemoveFromCart/5
         [HttpPost]
