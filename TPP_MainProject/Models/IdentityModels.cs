@@ -162,7 +162,23 @@ namespace TPP_MainProject.Models
             IdentityResult result6 = userManager.Create(user6, "Pas@123");
             success = this.AddUserToRole(userManager, user6.Id, RolesConst.Sales_MANAGER);
             if (!success) return success;
-
+            ProductItem item1 = new ProductItem()
+            {
+                name = "Шаблон 1",
+                price = 100,
+                shortDescription = "blabla",
+                description = "blablaballll"
+            };
+            ProductItem item2 = new ProductItem()
+            {
+                name = "Шаблон 2",
+                price = 234,
+                shortDescription = "blabla",
+                description = "blablaballll"
+            };
+            this.ProductItems.Add(item1);
+            this.ProductItems.Add(item2);
+            this.SaveChanges();
 
 #endif
             return success;

@@ -60,10 +60,10 @@
 </p>
 <div id="update-message">
 </div>
-<table>
+<table class="table">
     <tr>
         <th>
-             Name
+            Name
         </th>
         <th>
             Price
@@ -77,16 +77,20 @@
     {
         <tr id="row-@item.RecordId">
             <td>
-                @Html.ActionLink(item.ProductItem.name, "Details", "SalesManager", new { id = item.ProductItemId }, null)
+                <p class="button">
+                    @Html.ActionLink(item.ProductItem.name, "Details", "SalesManager", new { id = item.ProductItemId }, null)
+                </p>
             </td>
             <td>
-                @item.ProductItem.price
+                @Html.DisplayFor(modelItem => item.ProductItem.price)
             </td>
             <td id="item-count-@item.RecordId">
-                @item.Count
+                @Html.DisplayFor(modelItem => item.Count)
             </td>
             <td>
-                <a href="#" class="RemoveLink" data-id="@item.RecordId">Remove from cart</a>
+                <p class="button">
+                    @Html.ActionLink("Remove", "RemoveFromCart", "Order", new { id = item.RecordId }, null)
+                </p>
             </td>
         </tr>
     }
