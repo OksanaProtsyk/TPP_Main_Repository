@@ -14,6 +14,46 @@ namespace TPP_MainProject.Models.repository
         private GenericRepository<Accountant> accountantRepository;
         private GenericRepository<WorkItem> workItemRepository;
         private GenericRepository<Resourse> resourceRepository;
+        private GenericRepository<ProductItem> productItemRepository;
+        private GenericRepository<OrderDetail> orderDetailsRepository;
+        private GenericRepository<Cart> cartRepository;
+        public GenericRepository<OrderDetail> OrderDetailRepository
+        {
+            get
+            {
+
+                if (this.orderDetailsRepository == null)
+                {
+                    this.orderDetailsRepository = new GenericRepository<OrderDetail>(context);
+                }
+                return orderDetailsRepository;
+            }
+        }
+        public GenericRepository<Cart> CartRepository
+        {
+            get
+            {
+
+                if (this.cartRepository == null)
+                {
+                    this.cartRepository = new GenericRepository<Cart>(context);
+                }
+                return cartRepository;
+            }
+        }
+
+        public GenericRepository<ProductItem> ProductItemRepository
+        {
+            get
+            {
+
+                if (this.productItemRepository == null)
+                {
+                    this.productItemRepository = new GenericRepository<ProductItem>(context);
+                }
+                return productItemRepository;
+            }
+        }
 
         public GenericRepository<Resourse> ResourceRepository
         {
@@ -79,7 +119,6 @@ namespace TPP_MainProject.Models.repository
                 return applicationRepository;
             }
         }
-
         public void Save()
         {
             context.SaveChanges();

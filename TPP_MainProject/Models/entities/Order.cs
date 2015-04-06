@@ -14,6 +14,7 @@ namespace TPP_MainProject.Models.entities
         public OrderStatus orderStartus { get; set; }
         public virtual ICollection<ProductItem> orderItems { get; set; }
         public String detailDescription { get; set; }
+        public decimal Total { get; set; }
 
         public Customer customer;
     }

@@ -8,17 +8,18 @@ using System.Web;
 using System.Web.Mvc;
 using TPP_MainProject.Models;
 using TPP_MainProject.Models.entities;
+using TPP_MainProject.Models.repository;
 
 namespace TPP_MainProject.Controllers
 {
     public class SalesManagerController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private UnitOfWork unitOfWork = new UnitOfWork();
 
         // GET: SalesManager
         public ActionResult Index()
         {
-            return View(db.ProductItems.ToList());
+            return View(unitOfWork.ProductItemRepository.Get().ToList());
         }
 
         // GET: SalesManager/Details/5
@@ -28,7 +29,7 @@ namespace TPP_MainProject.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ProductItem productItem = db.ProductItems.Find(id);
+            ProductItem productItem = unitOfWork.ProductItemRepository.GetByID(id);
             if (productItem == null)
             {
                 return HttpNotFound();
@@ -51,8 +52,8 @@ namespace TPP_MainProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.ProductItems.Add(productItem);
-                db.SaveChanges();
+                unitOfWork.ProductItemRepository.Insert(productItem);
+                unitOfWork.Save();
                 return RedirectToAction("Index");
             }
 
@@ -66,7 +67,7 @@ namespace TPP_MainProject.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ProductItem productItem = db.ProductItems.Find(id);
+            ProductItem productItem = unitOfWork.ProductItemRepository.GetByID(id);
             if (productItem == null)
             {
                 return HttpNotFound();
@@ -79,12 +80,12 @@ namespace TPP_MainProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,name,shortDescription,description,price")] ProductItem productItem)
+        public ActionResult Edit( ProductItem productItem)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(productItem).State = EntityState.Modified;
-                db.SaveChanges();
+                unitOfWork.ProductItemRepository.Update(productItem);
+                unitOfWork.Save();
                 return RedirectToAction("Index");
             }
             return View(productItem);
@@ -97,7 +98,7 @@ namespace TPP_MainProject.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ProductItem productItem = db.ProductItems.Find(id);
+            ProductItem productItem = unitOfWork.ProductItemRepository.GetByID(id);
             if (productItem == null)
             {
                 return HttpNotFound();
@@ -110,19 +111,12 @@ namespace TPP_MainProject.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            ProductItem productItem = db.ProductItems.Find(id);
-            db.ProductItems.Remove(productItem);
-            db.SaveChanges();
+            ProductItem productItem = unitOfWork.ProductItemRepository.GetByID(id);
+            unitOfWork.ProductItemRepository.Delete(productItem);
+            unitOfWork.Save();
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+       
     }
 }

@@ -11,6 +11,6 @@ namespace TPP_MainProject.Models.entities
         public String name {get; set;}
         public String shortDescription {get; set;}
         public String description {get; set;}
-        public Double price { get; set;}
+        public Decimal price { get; set;}
     }
 }

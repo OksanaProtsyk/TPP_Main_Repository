@@ -163,9 +163,11 @@
     <Compile Include="Controllers\AccountantController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminUserController.cs" />
+    <Compile Include="Controllers\CheckoutController.cs" />
     <Compile Include="Controllers\DistributorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OperatorController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ResourceManagersController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\ProgrammerController.cs" />
@@ -180,11 +182,13 @@
     <Compile Include="Models\entities\ApplicationRole.cs" />
     <Compile Include="Models\entities\ApplicationUser.cs" />
     <Compile Include="Models\entities\ApplicationUserRole.cs" />
+    <Compile Include="Models\entities\Cart.cs" />
     <Compile Include="Models\entities\Customer.cs" />
     <Compile Include="Models\entities\HR.cs" />
     <Compile Include="Models\entities\Manager.cs" />
     <Compile Include="Models\entities\Operator.cs" />
     <Compile Include="Models\entities\Order.cs" />
+    <Compile Include="Models\entities\OrderDetail.cs" />
     <Compile Include="Models\entities\ProductItem.cs" />
     <Compile Include="Models\entities\Programmer.cs" />
     <Compile Include="Models\entities\Project.cs" />
@@ -194,10 +198,12 @@
     <Compile Include="Models\entities\Worker.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\CustomerModel.cs" />
+    <Compile Include="Models\OrderCart.cs" />
     <Compile Include="Models\repository\GenericRepository.cs" />
     <Compile Include="Models\repository\UnitOfWork.cs" />
     <Compile Include="Models\ViewModels\AdminUserViewModel.cs" />
     <Compile Include="Models\ViewModels\EditUserViewModel.cs" />
+    <Compile Include="Models\ViewModels\OrderViewModel.cs" />
     <Compile Include="Models\ViewModels\RoleViewModel.cs" />
     <Compile Include="Models\ViewModels\WorkItemViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -287,6 +293,10 @@
     <Content Include="Views\SalesManager\Details.cshtml" />
     <Content Include="Views\SalesManager\Edit.cshtml" />
     <Content Include="Views\SalesManager\Index.cshtml" />
+    <Content Include="Views\Order\Index.cshtml" />
+    <Content Include="Views\Order\Items.cshtml" />
+    <Content Include="Views\Checkout\AddressAndPayment.cshtml" />
+    <Content Include="Views\Checkout\Complete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

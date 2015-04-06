@@ -40,6 +40,7 @@ namespace TPP_MainProject.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<ApplicationRole> Roles { get; set; }
+        public DbSet<Cart> Carts { get; set; }
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {

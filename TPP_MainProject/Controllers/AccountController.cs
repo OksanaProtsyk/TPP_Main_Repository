@@ -64,6 +64,7 @@ namespace TPP_MainProject.Controllers
                 if (user != null)
                 {
                     await SignInAsync(user, model.RememberMe);
+                    MigrateShoppingCart(user.UserName);
                     return RedirectToLocal(returnUrl);
                 }
                 else
@@ -118,7 +119,7 @@ namespace TPP_MainProject.Controllers
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
+                    MigrateShoppingCart(user.UserName);
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -335,6 +336,14 @@ namespace TPP_MainProject.Controllers
 
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+        private void MigrateShoppingCart(string UserName)
+        {
+            // Associate shopping cart items with logged-in user
+            var cart = OrderCart.GetCart(this.HttpContext);
+
+            cart.MigrateCart(UserName);
+            Session[OrderCart.CartSessionKey] = UserName;
         }
 
         //
