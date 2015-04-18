@@ -70,7 +70,7 @@ namespace TPP_MainProject.Models
         {
 
             bool success = false;
-#if DEBUG
+
             ApplicationRoleManager _roleManager = new ApplicationRoleManager(new RoleStore<ApplicationRole>(context));
 
             success = this.CreateRole(_roleManager, RolesConst.ADMIN, "Global Access");
@@ -140,7 +140,7 @@ namespace TPP_MainProject.Models
  
             
 
-#endif
+
             return success;
 
         }
