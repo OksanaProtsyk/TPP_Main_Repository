@@ -7,7 +7,10 @@ namespace TPP_MainProject.Models.entities
 {
     public class Resourse
     {
-        public String id { get; set; }
+        public int Id { get; set; }
         public String Name { get; set; }
+        public double Price { get; set; }
+        public String Description { get; set; }
+
     }
 }

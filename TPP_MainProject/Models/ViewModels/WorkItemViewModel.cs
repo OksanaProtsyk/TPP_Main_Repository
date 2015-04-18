@@ -26,12 +26,12 @@ namespace TPP_MainProject.Models.ViewModels
         public WorkItemViewModel() { }
         public WorkItemViewModel(WorkItem workItem)
         {
-            this.Id = workItem.id;
-            this.Name = workItem.name;
-            this.Description = workItem.description;
-            this.DueDate = workItem.dueDate;
-            this.Status = workItem.status;
-            this.AssignedWorker = workItem.assignedWorker;
+            this.Id = workItem.Id;
+            this.Name = workItem.Name;
+            this.Description = workItem.Description;
+            this.DueDate = workItem.DueDate;
+            this.Status = workItem.Status;
+            this.AssignedWorker = workItem.AssignedWorker;
             this.AssignedProject = workItem.assignedProject;
         }
     }

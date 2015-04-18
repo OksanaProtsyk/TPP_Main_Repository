@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using TPP_MainProject.Models;
 using TPP_MainProject.Models.entities;
 using TPP_MainProject.Models.repository;
 using TPP_MainProject.Models.ViewModels;
@@ -15,7 +12,7 @@ namespace TPP_MainProject.Controllers
 {
     public class OperatorController : Controller
     {
-        private ApplicationDbContext _db = new ApplicationDbContext();
+        
         UnitOfWork unitOfWork = new UnitOfWork();
 
         // GET: Operator
@@ -26,8 +23,8 @@ namespace TPP_MainProject.Controllers
         }
 
         // GET: Operator/Details/5
-        
-        public ActionResult Details(string id)
+
+        public ActionResult Details(string id = "")
         {
             if (id == null)
             {
@@ -52,28 +49,24 @@ namespace TPP_MainProject.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(WorkItemViewModel model)
         {
-            if (ModelState.IsValid)
-            {
                 var @workItem = new WorkItem() {
-                    //id = model.Id,
-                    name = model.Name,
-                    description = model.Description,
-                    dueDate = model.DueDate,
-                    status = model.Status,
-                    assignedWorker = model.AssignedWorker,
+                    Id = model.Id,
+                    Name = model.Name,
+                    Description = model.Description,
+                    DueDate = model.DueDate,
+                    Status = model.Status,
+                    AssignedWorker = model.AssignedWorker,
                     assignedProject = model.AssignedProject
                 };
 
                 unitOfWork.WorkItemRepository.Insert(@workItem);
+                unitOfWork.Save();
 
                 return RedirectToAction("Index", "Operator");
-            }
-
-            return View();
         }
 
         // GET: Operator/Edit/5
-        public ActionResult Edit(string id)
+        public ActionResult Edit(string id = "")
         {
             if (id == null)
             {
@@ -91,17 +84,22 @@ namespace TPP_MainProject.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(WorkItemViewModel model)
         {
-            if (ModelState.IsValid)
-            {
-                //db.Entry(@operator).State = EntityState.Modified;
-                //db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View();
+            WorkItem workItem = unitOfWork.WorkItemRepository.GetByID(model.Id);
+            workItem.Name = model.Name;
+            workItem.Description = model.Description;
+            workItem.DueDate = model.DueDate;
+            workItem.Status = model.Status;
+            workItem.AssignedWorker = model.AssignedWorker;
+            workItem.assignedProject = model.AssignedProject;
+
+            unitOfWork.WorkItemRepository.Insert(workItem);
+            unitOfWork.Save();
+            
+            return RedirectToAction("Index");
         }
 
         // GET: Operator/Delete/5
-        public ActionResult Delete(string id)
+        public ActionResult Delete(string id = "")
         {
             if (id == null)
             {
@@ -118,21 +116,14 @@ namespace TPP_MainProject.Controllers
         // POST: Operator/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult DeleteConfirmed(string id = "")
         {
             WorkItem @workItem = unitOfWork.WorkItemRepository.GetByID(id);
-            //db.ApplicationUsers.Remove(@workItem);
-            //db.SaveChanges();
+            unitOfWork.WorkItemRepository.Delete(@workItem);
+            unitOfWork.Save();
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                _db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+    
     }
 }

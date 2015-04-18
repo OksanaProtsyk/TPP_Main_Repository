@@ -8,12 +8,12 @@ namespace TPP_MainProject.Models.entities
 {
     public class WorkItem
     {
-        public int id  { get; set; }
-        public String name  { get; set; }
-        public String description { get; set; }
-        public DateTime dueDate { get; set; }
-        public TaskStatus status { get; set; }
-        public virtual Worker assignedWorker { get; set; }
+        public int Id  { get; set; }
+        public String Name  { get; set; }
+        public String Description { get; set; }
+        public DateTime DueDate { get; set; }
+        public TaskStatus Status { get; set; }
+        public virtual Worker AssignedWorker { get; set; }
         public virtual Project assignedProject { get; set; }
     
     }

@@ -17,6 +17,7 @@ using TPP_MainProject.Models.ViewModels;
 using System.Collections.ObjectModel;
 using TPP_MainProject.Models.constants;
 using System.Data.Entity;
+using PagedList;
 
 namespace TPP_MainProject.Controllers
 {
@@ -53,15 +54,52 @@ namespace TPP_MainProject.Controllers
         //
         // GET: /Admin/Index
         [AllowAnonymous]
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString,int? page)
         {
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "Name_desc" : "";
+            ViewBag.RoleSortParm = sortOrder == "Role" ? "Role_desc" : "Role";
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
             var rolesList = new Collection<AdminUserViewModel>();
-            foreach (var role in _db.Users)
+            var users = from s in _db.Users
+                        select s;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                users = users.Where(s => s.UserName.ToUpper().Contains(searchString.ToUpper()));
+            }
+            switch (sortOrder)
+            {
+                case "Name_desc":
+                    users = users.OrderByDescending(s => s.UserName);
+                    break;
+                case "Role":
+                    users = users.OrderBy(s => s.RoleName);
+                    break;
+                case "Role_desc":
+                    users = users.OrderByDescending(s => s.RoleName);
+                    break;
+                default:
+                    users = users.OrderBy(s => s.UserName);
+                    break;
+            }
+            foreach (var role in users)
             {
                 var moselItem = new AdminUserViewModel(role);
                 rolesList.Add(moselItem);
             }
-            return View(rolesList);
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            return View(rolesList.ToPagedList(pageNumber, pageSize));
+            
         }
 
         public ActionResult Create()
@@ -220,8 +258,9 @@ namespace TPP_MainProject.Controllers
                     Country = model.Country,
                     RoleName = model.RoleName
                 };
-   
-                IdentityResult result =  UserManager.Create(user, model.Password);
+              
+
+                IdentityResult result = UserManager.Create(user, model.Password);
                 _db.AddUserToRole(UserManager, user.Id, model.RoleName);
                 _db.SaveChanges();
 
@@ -257,8 +296,9 @@ namespace TPP_MainProject.Controllers
             {
                 return HttpNotFound();
             }
-           
-            return View(user);
+            EditUserViewModel model = new EditUserViewModel(user);
+            ViewBag.roles = _db.Roles.ToList();
+            return View(model);
         }
 
         //
@@ -266,15 +306,31 @@ namespace TPP_MainProject.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(ApplicationUser user)
+        public ActionResult Edit(EditUserViewModel model)
         {
             if (ModelState.IsValid)
             {
-                _db.Entry(user).State = EntityState.Modified;
-               _db.SaveChanges();
+               ApplicationUser user =unityOfWork.UserRepository.GetByID(model.Id);
+               user.LastName = model.LastName;
+               user.FistName = model.FistName;
+               user.Country = model.Country;
+               user.City = model.City;
+               user.Organization = model.Organization;
+               if (user.RoleName != model.Role)
+               {
+                   _db.RemoveFromRole(UserManager, user.Id, model.Role);
+                   user.RoleName = model.Role;
+                   _db.AddUserToRole(UserManager, user.Id, model.Role);
+               }
+                unityOfWork.Save();
+
+               // _db.Entry(user).State = EntityState.Modified;
+
+                // TODO
+              // _db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(user);
+            return View(model);
         }
 
         //
