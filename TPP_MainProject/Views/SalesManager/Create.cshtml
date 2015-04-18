@@ -8,10 +8,10 @@
 
 @using (Html.BeginForm())
 {
-    if(Request.IsAuthenticated)
-     {
-     }
-    if (User.IsInRole("SalesManager"))
+    //if(Request.IsAuthenticated)
+   //  {
+    // }
+   // if (User.IsInRole("SalesManager"))
         {
     @Html.AntiForgeryToken()
     
@@ -58,7 +58,7 @@
         </div>
     </div>
         }
-    else
+    //else
     {
         <h2>No avalible acsses</h2>
     }

@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 using TPP_MainProject.Models;
 using TPP_MainProject.Models.entities;
 using TPP_MainProject.Models.repository;
@@ -15,11 +17,44 @@ namespace TPP_MainProject.Controllers
     public class SalesManagerController : Controller
     {
         private UnitOfWork unitOfWork = new UnitOfWork();
+        private ApplicationDbContext _db = new ApplicationDbContext();
 
         // GET: SalesManager
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            return View(unitOfWork.ProductItemRepository.Get().ToList());
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+            var productItemList = new Collection<ProductItem>();
+            var productI = from s in _db.ProductItems
+                select s;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                productI = productI.Where(s => s.name.ToUpper().Contains(searchString.ToUpper()));
+            }
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    productI = productI.OrderByDescending(s => s.name);
+                    break;
+                default:
+                    productI = productI.OrderBy(s => s.name);
+                    break;
+            }
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            return View(productItemList.ToPagedList(pageNumber, pageSize));
+            
+            //return View(unitOfWork.ProductItemRepository.Get().ToList());
         }
 
         // GET: SalesManager/Details/5
@@ -116,6 +151,8 @@ namespace TPP_MainProject.Controllers
             unitOfWork.Save();
             return RedirectToAction("Index");
         }
+
+
 
        
     }
