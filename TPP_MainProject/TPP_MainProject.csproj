@@ -212,8 +212,8 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\CustomerModel.cs" />
     <Compile Include="Models\OrderCart.cs" />
-    <Compile Include="Models\repository\GenericRepository.cs" />
-    <Compile Include="Models\repository\UnitOfWork.cs" />
+    <Compile Include="Models\entities\repository\GenericRepository.cs" />
+    <Compile Include="Models\entities\repository\UnitOfWork.cs" />
     <Compile Include="Models\ViewModels\AdminUserViewModel.cs" />
     <Compile Include="Models\ViewModels\EditUserViewModel.cs" />
     <Compile Include="Models\ViewModels\OrderViewModel.cs" />
