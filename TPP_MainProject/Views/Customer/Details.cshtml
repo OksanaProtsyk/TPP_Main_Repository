@@ -1,4 +1,4 @@
-﻿@model TPP_MainProject.Models.entities.Order
+﻿@model TPP_MainProject.Models.entities.ProductItem
 
 @{
     ViewBag.Title = "Details";
@@ -14,30 +14,18 @@
             Order Number
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.OrderId)
+            @Html.DisplayFor(model => model.Name)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.completeDate)
+            @Html.DisplayNameFor(model => model.InternalImage)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.completeDate)
+            @Html.DisplayFor(model => model.Price)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.orderStartus)
-        </dt>
-
         <dd>
-            @Html.DisplayFor(model => model.orderStartus)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.detailDescription)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.detailDescription)
+            @Html.DisplayFor(model => model.shortDescription)
         </dd>
          
 

@@ -47,10 +47,14 @@
     {
        <h2>Address And Payment</h2>
         <fieldset>
-            <legend>Shipping Information</legend>
+            <legend>Shopping Information</legend>
 
-            
             <br>
+
+            <div class="form-group">
+                    @Html.EditorFor(model => model.OrderDetails, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.OrderDetails, "", new { @class = "text-danger" })
+            </div>
 
             <div class="form-group">
                 <div class="col-lg-10 col-lg-offset-8">
