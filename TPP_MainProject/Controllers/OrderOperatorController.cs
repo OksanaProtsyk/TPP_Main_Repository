@@ -41,9 +41,11 @@ namespace TPP_MainProject.Controllers
         public ActionResult Confrim(int? id)
         {
 
-            IEnumerable<Manager> them = unitOfWork.ManagerRepository.Get();
+            IEnumerable<ApplicationUser> them = unitOfWork.UserRepository.Get().Where(s => s.RoleName.Equals(RolesConst.MANAGER));
+
             ViewBag.pm = them;
-            ViewBag.ps = (IEnumerable<ProjectStatus>)Enum.GetValues(typeof(ProjectStatus));
+            //make enumerable from enum
+            //ViewBag.ps = (IEnumerable<ProjectStatus>)Enum.GetValues(typeof(ProjectStatus)); 
             Project proj = new Project();
            
             return View(proj);
@@ -61,10 +63,22 @@ namespace TPP_MainProject.Controllers
                 ord.orderStartus = OrderStatus.Processiong;
                 unitOfWork.OrderRepository.Update(ord);
 
+             
                 pro.order = ord;
+                pro.costs = ord.Total;
+                //глаза мои етого не видели и руки не писали @Pifagor
+                IEnumerable<ApplicationUser> them =  unitOfWork.UserRepository.Get().Where(s => s.RoleName.Equals(RolesConst.MANAGER));
+                foreach (ApplicationUser manager in them)
+                {
+                    if (manager.LastName.Equals(pro.nameProjectManager))
+                        pro.projectManager = manager;
+                }
+              
+                pro.projectStatus = ProjectStatus.Initial;
 
                 unitOfWork.ProjectRepository.Insert(pro);
                 unitOfWork.Save();
+
                 return RedirectToAction("Index");
             }
             return View();
