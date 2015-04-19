@@ -196,7 +196,6 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\constants\Enums.cs" />
     <Compile Include="Models\constants\Roles.cs" />
-    <Compile Include="Models\constants\Utilts.cs" />
     <Compile Include="Models\entities\Accountant.cs" />
     <Compile Include="Models\entities\ApplicationRole.cs" />
     <Compile Include="Models\entities\ApplicationUser.cs" />
