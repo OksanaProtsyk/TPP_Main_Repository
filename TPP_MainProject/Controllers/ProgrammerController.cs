@@ -7,10 +7,13 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.Ajax.Utilities;
 using PagedList;
 using TPP_MainProject.Models.entities;
 using TPP_MainProject.Models;
+using TPP_MainProject.Models.constants;
 using TPP_MainProject.Models.repository;
+using TPP_MainProject.Models.ViewModels;
 
 namespace TPP_MainProject.Controllers
 {
@@ -62,13 +65,13 @@ namespace TPP_MainProject.Controllers
             return View(workItems);
         }
 
-        public ActionResult Details(string id)
+     public ActionResult Details(int id)
         {
            if (id == null)
             {
                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-           WorkItem workItem = unitOfWork.WorkItemRepository.GetByID(id);
+            WorkItem workItem = unitOfWork.WorkItemRepository.GetByID(id);
             if (workItem == null)
             {
                   return HttpNotFound();
@@ -92,7 +95,7 @@ namespace TPP_MainProject.Controllers
             if (ModelState.IsValid)
             {
                 //db.Users.Add(worker);
-             //   db.SaveChanges();
+              //db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -100,18 +103,36 @@ namespace TPP_MainProject.Controllers
         }
 
         // GET: /Worker/Edit/5
-        public ActionResult Edit(string id)
+        public ActionResult Edit(int  id)
         {
-            //if (id == null)
-            //{
-            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            //}
-            //Worker worker = db.Users.Find(id);
-            //if (worker == null)
-            //{
-            //    return HttpNotFound();
-            //}
-            return View();
+            WorkItem workI = unitOfWork.WorkItemRepository.GetByID(id);
+            
+            ViewBag.ps = (IEnumerable<TaskStatus>)Enum.GetValues(typeof(TaskStatus));
+            if (workI == null)
+            {
+               return HttpNotFound();
+            }
+            return View(workI);
+            //return View(new WorkItemViewModel(workI));
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(WorkItem model)
+        {
+            if (ModelState.IsValid)
+            {
+                var workI = unitOfWork.WorkItemRepository.GetByID(model.Id);
+                 workI.Status= model.Status;
+                 unitOfWork.WorkItemRepository.Update(workI);
+                unitOfWork.Save();
+
+                // _db.Entry(user).State = EntityState.Modified;
+
+                // TODO
+                // _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(model);
         }
 
         // POST: /Worker/Edit/5
