@@ -13,6 +13,7 @@ namespace TPP_MainProject.Models.entities
         public Double costs { get; set; }
         public ProjectStatus projectStatus { get; set; }
         public virtual ICollection<WorkItem> tasks { get; set; }
-        public virtual Manager projectManager { get; set; }
+        public  Manager projectManager { get; set; }
+        public virtual Order order {get;set; }
     }
 }

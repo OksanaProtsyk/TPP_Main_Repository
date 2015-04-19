@@ -17,6 +17,7 @@ namespace TPP_MainProject.Models.constants
         public const string OPERATOR = "Operator";
         public const string RESOURSE_MANAGER = "ResourceManager";
         public const string Sales_MANAGER = "SalesManager";
+        public const string ORDER_OPERATOR = "OrderOperator";
 
     }
 }

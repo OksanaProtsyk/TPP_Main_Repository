@@ -44,6 +44,10 @@ namespace TPP_MainProject.Controllers
             {
                 return RedirectToAction("Index", RolesConst.Sales_MANAGER);
             }
+            if (User.IsInRole(RolesConst.ORDER_OPERATOR))
+            {
+                return RedirectToAction("Index", RolesConst.ORDER_OPERATOR);
+            }
             //_db.Dispose();
              return RedirectToAction("About", "Home");;
         }
