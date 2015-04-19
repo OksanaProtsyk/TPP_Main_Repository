@@ -50,13 +50,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Status)
 
-                    <select name=""><!-- name="":unique id of workItem-->
-                        <option>Initial</option>
-                        <option>InProgress</option>
-                        <option>OnHold</option>
-                        <option>Completed</option>
-
-                    </select>
+                   
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |

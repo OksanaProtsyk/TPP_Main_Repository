@@ -10,6 +10,7 @@ using System;
 using System.Linq;
 using TPP_MainProject.Models.constants;
 using TPP_MainProject.Models.repository;
+using TaskStatus = TPP_MainProject.Models.constants.TaskStatus;
 
 namespace TPP_MainProject.Models
 {
@@ -264,19 +265,18 @@ namespace TPP_MainProject.Models
             this.ProductItems.Add(item1);
             this.ProductItems.Add(item2);
 
-          /*  WorkItem item11 = new WorkItem()
+            WorkItem workItem = new WorkItem()
             {
                 Name = "Шаблон 1",
                 Description = "blabla",
                 // hours, minutes, seconds
                 DueDate = DateTime.Today + (new TimeSpan(12, 20, 20)),
-
+                Status = TaskStatus.InProgress
             };
-            this.WorkItem.Add(item11);
+            this.WorkItems.Add(workItem);
+            this.SaveChanges();
 
               //  DueDate = new DateTime(2015,05,12);
-               
-    */
          
 
             Resourse r1 = new Resourse() { 
@@ -420,6 +420,8 @@ namespace TPP_MainProject.Models
         public System.Data.Entity.DbSet<TPP_MainProject.Models.entities.Order> Orders { get; set; }
 
         public System.Data.Entity.DbSet<TPP_MainProject.Models.entities.ProductItem> ProductItems { get; set; }
+
+        public System.Data.Entity.DbSet<TPP_MainProject.Models.entities.WorkItem> WorkItems { get; set; }
 
         public System.Data.Entity.DbSet<TPP_MainProject.Models.entities.Project> Projects { get; set; }
     }   
