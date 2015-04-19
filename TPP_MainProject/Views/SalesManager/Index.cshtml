@@ -1,27 +1,35 @@
 ﻿@model IEnumerable<TPP_MainProject.Models.entities.ProductItem>
+@using PagedList.Mvc;
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>ProductItem</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+@using (Html.BeginForm("Index", "SalesManager", FormMethod.Get))
+{
+    <p>
+        Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Search" style="background:#0B610B; color:#fff;" />
+    </p>
+}
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.name)
+            @Html.ActionLink(" name", "Index", new { sortOrder = ViewBag.NameSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.shortDescription)
+            shortDescription
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.description)
+            description
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.price)
+            price
         </th>
         <th></th>
     </tr>
