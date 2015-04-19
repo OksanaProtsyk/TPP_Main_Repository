@@ -20,7 +20,7 @@ namespace TPP_MainProject.Models.ViewModels
          [Required]
         public TaskStatus Status { get; set; }
          [Required]
-        public virtual Worker AssignedWorker { get; set; }
+        public virtual ApplicationUser AssignedWorker { get; set; }
         public virtual Project AssignedProject { get; set; }
 
         public WorkItemViewModel() { }

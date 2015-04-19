@@ -233,6 +233,8 @@ namespace TPP_MainProject.Models
             success = this.AddUserToRole(userManager, user12.Id, RolesConst.ORDER_OPERATOR);
             if (!success) return success;
 
+            
+
             Catagorie cat1 = new Catagorie()
             {
                 Name = "Visitka"
@@ -274,6 +276,17 @@ namespace TPP_MainProject.Models
                 Status = TaskStatus.InProgress
             };
             this.WorkItems.Add(workItem);
+
+            WorkItem workItem1 = new WorkItem()
+            {
+                Name = "Шаблон 2",
+                Description = "blablabla",
+                // hours, minutes, seconds
+                DueDate = DateTime.Today + (new TimeSpan(12, 20, 20)),
+                Status = TaskStatus.InProgress
+            };
+            this.WorkItems.Add(workItem);
+
             this.SaveChanges();
 
               //  DueDate = new DateTime(2015,05,12);
@@ -342,7 +355,22 @@ namespace TPP_MainProject.Models
             this.Orders.Add(or2);
             this.Orders.Add(or3);
 
+            Project project = new Project()
+            {
+                name = "MyProject",
+                nameProjectManager = "manager@gmail.com",
+                costs = 300,
+                projectStatus = ProjectStatus.Initial,
+                projectManager = user10,
+                order = or1,
+                tasks = new List<WorkItem>()
+            };
+            project.tasks.Add(workItem);
+            project.tasks.Add(workItem1);
+            this.Projects.Add(project);
+
             this.SaveChanges();
+
             return success;
 
         }

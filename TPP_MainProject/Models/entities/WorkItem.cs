@@ -13,7 +13,7 @@ namespace TPP_MainProject.Models.entities
         public String Description { get; set; }
         public DateTime DueDate { get; set; }
         public TaskStatus Status { get; set; }
-        public virtual Worker AssignedWorker { get; set; }
+        public virtual ApplicationUser AssignedWorker { get; set; }
         public virtual Project assignedProject { get; set; }
     
     }

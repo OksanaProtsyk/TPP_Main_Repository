@@ -13,7 +13,7 @@ namespace TPP_MainProject.Models.entities
         public decimal costs { get; set; }
         public ProjectStatus projectStatus { get; set; }
         public virtual ICollection<WorkItem> tasks { get; set; }
-        public  ApplicationUser projectManager { get; set; }
+        public virtual ApplicationUser projectManager { get; set; }
 
         public String nameProjectManager { get; set; }
         public virtual Order order {get;set; }
