@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System;
 using System.Linq;
 using TPP_MainProject.Models.constants;
+using TPP_MainProject.Models.repository;
 
 namespace TPP_MainProject.Models
 {
@@ -40,6 +41,7 @@ namespace TPP_MainProject.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<ApplicationRole> Roles { get; set; }
+        public DbSet<Catagorie> Catagories { get; set; }
         public DbSet<Cart> Carts { get; set; }
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
@@ -91,6 +93,8 @@ namespace TPP_MainProject.Models
             success = this.CreateRole(_roleManager, RolesConst.Sales_MANAGER, "Sales Manager");
             if (!success == true) return success;
             success = this.CreateRole(_roleManager, RolesConst.MANAGER, "Manager");
+            if (!success == true) return success;
+            success = this.CreateRole(_roleManager, RolesConst.ORDER_OPERATOR, "Order Manaher");
             if (!success == true) return success;
             // Create my debug (testing) objects here
 
@@ -182,7 +186,7 @@ namespace TPP_MainProject.Models
             IdentityResult result8 = userManager.Create(user8, "Pas@123");
             success = this.AddUserToRole(userManager, user8.Id, RolesConst.CUSTOMER);
             if (!success) return success;
-            ApplicationUser user9 = new ApplicationUser();
+            Customer user9 = new Customer();
             PasswordHasher passwordHasher9 = new PasswordHasher();
             user9.UserName = "customer2@gmail.com";
             user9.Email = "customer2@gmail.com";
@@ -215,19 +219,46 @@ namespace TPP_MainProject.Models
             success = this.AddUserToRole(userManager, user11.Id, RolesConst.MANAGER);
             if (!success) return success;
 
+            if (!success) return success;
+            ApplicationUser user12 = new ApplicationUser();
+            PasswordHasher passwordHaser12 = new PasswordHasher();
+            user12.UserName = "order@gmail.com";
+            user12.Email = "order@gmail.com";
+            user12.RoleName = RolesConst.ORDER_OPERATOR;
+            user12.FistName = RolesConst.ORDER_OPERATOR;
+            user12.LastName = RolesConst.ORDER_OPERATOR;
+            IdentityResult result12 = userManager.Create(user12, "Pas@123");
+            success = this.AddUserToRole(userManager, user12.Id, RolesConst.ORDER_OPERATOR);
+            if (!success) return success;
+
+            Catagorie cat1 = new Catagorie()
+            {
+                Name = "Visitka"
+            };
+            Catagorie blog = new Catagorie()
+            {
+                Name = "Blog"
+            };
+            this.Catagories.Add(cat1);
+            this.Catagories.Add(blog);
+            this.SaveChanges();
             ProductItem item1 = new ProductItem()
             {
-                name = "Шаблон 1",
-                price = 100,
+                Name = "Шаблон 1",
+                Price = 100,
                 shortDescription = "blabla",
-                description = "blablaballll"
+                description = "blablaballll",
+                CatagorieId = cat1.ID,
+                Catagorie = cat1
             };
             ProductItem item2 = new ProductItem()
             {
-                name = "Шаблон 2",
-                price = 234,
+                Name = "Шаблон 2",
+                Price = 234,
                 shortDescription = "blabla",
-                description = "blablaballll"
+                description = "blablaballll",
+                CatagorieId = blog.ID,
+                Catagorie = blog
             };
             this.ProductItems.Add(item1);
             this.ProductItems.Add(item2);
@@ -253,7 +284,7 @@ namespace TPP_MainProject.Models
             Order or1 = new Order()
             {
                 completeDate = DateTime.Now,
-                orderDate =  DateTime.Now,
+                OrderDate =  DateTime.Now,
                 detailDescription = "mememe",
                 orderStartus = OrderStatus.Initiating,
                 Total = 200,
@@ -274,7 +305,7 @@ namespace TPP_MainProject.Models
             Order or2 = new Order()
             {
                 completeDate = DateTime.Now,
-                orderDate = DateTime.Now,
+                OrderDate = DateTime.Now,
                 detailDescription = "nyanyayna",
                 orderStartus = OrderStatus.Processiong,
                 Total = 150,
@@ -285,7 +316,7 @@ namespace TPP_MainProject.Models
             Order or3 = new Order()
             {
                 completeDate = DateTime.Now,
-                orderDate = DateTime.Now,
+                OrderDate = DateTime.Now,
                 detailDescription = "sysysy",
                 orderStartus = OrderStatus.Initiating,
                 Total = 600,

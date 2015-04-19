@@ -9,11 +9,10 @@ namespace TPP_MainProject.Models.entities
     {
         public int OrderDetailId { get; set; }
         public int OrderId { get; set; }
-        public int ProductItemId { get; set; }
+        public int ItemId { get; set; }
         public int Quantity { get; set; }
         public decimal UnitPrice { get; set; }
-        public virtual ProductItem ProductItem { get; set; }
-
+        public virtual ProductItem Item { get; set; }
         public virtual Order Order { get; set; }
     }
 }

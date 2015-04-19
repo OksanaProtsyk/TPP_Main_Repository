@@ -44,7 +44,7 @@ namespace TPP_MainProject.Controllers
         {
             // Retrieve the album from the database
             var addedAlbum = unitOfWork.ProductItemRepository.dbSet
-                .Single(album => album.id == id);
+                .Single(album => album.ID == id);
  
             // Add it to the shopping cart
             var cart = OrderCart.GetCart(this.HttpContext);
@@ -77,7 +77,7 @@ namespace TPP_MainProject.Controllers
  
             // Get the name of the album to display confirmation
             string albumName = unitOfWork.CartRepository.dbSet
-                .Single(item => item.RecordId == id).ProductItem.name;
+                .Single(item => item.RecordId == id).ProductItem.Name;
  
             // Remove from cart
             int itemCount = cart.RemoveFromCart(id);

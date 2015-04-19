@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using TPP_MainProject.Models;
+using TPP_MainProject.Models.constants;
 using TPP_MainProject.Models.entities;
 using TPP_MainProject.Models.repository;
 
@@ -17,19 +19,21 @@ namespace TPP_MainProject.Controllers
         {
             return View();
         }
+        [Authorize(Roles = "Customer")]
         public ActionResult AddressAndPayment()
         {
             return View();
         }
         // POST: /Checkout/AddressAndPayment
         [HttpPost]
+        [Authorize(Roles = "Customer")]
         public ActionResult AddressAndPayment(FormCollection values)
         {
             var order = new Order();
             TryUpdateModel(order);
 
-            try
-            {
+            //try
+            //{
                /* if (string.Equals(values["PromoCode"], PromoCode,
                     StringComparison.OrdinalIgnoreCase) == false)
                 {
@@ -38,8 +42,11 @@ namespace TPP_MainProject.Controllers
                 else
                 {*/
                    // order.customer.UserName = User.Identity.Name;
-                    order.orderDate = DateTime.Now;
-                    
+                    order.OrderDate = DateTime.Now;
+                    order.completeDate = DateTime.Now;
+                    order.orderStartus = OrderStatus.Initiating;
+                   
+                    order.customer =(Customer) unitOfWork.CustomerRepository.dbSet.Where(s => s.UserName.Equals(User.Identity.Name)).First();
                   
 
                     //Save Order
@@ -47,24 +54,27 @@ namespace TPP_MainProject.Controllers
                     unitOfWork.Save();
                     //Process the order
                     var cart = OrderCart.GetCart(this);
+                 //   order.orderItems = new Collection<ProductItem>();
                     cart.CreateOrder(order);
+                    unitOfWork.Save();
 
                     return RedirectToAction("Complete",
-                        new { id = order.id });
+                        new { id = order.OrderId });
+                   
                 //}
-            }
-            catch
-            {
+           // }
+            //catch
+            //{
                 //Invalid - redisplay with errors
-                return View(order);
-            }
+            //    return View(order);
+           // }
         }
         // GET: /Checkout/Complete
         public ActionResult Complete(int id)
         {
             // Validate customer owns this order
             bool isValid = unitOfWork.OrderRepository.dbSet.Any(
-                o => o.id == id &&
+                o => o.OrderId == id &&
                 o.customer.UserName == User.Identity.Name);
 
             if (isValid)

@@ -78,11 +78,11 @@
         <tr id="row-@item.RecordId">
             <td>
                 <p class="button">
-                    @Html.ActionLink(item.ProductItem.name, "Details", "SalesManager", new { id = item.ProductItemId }, null)
+                    @Html.ActionLink(item.ProductItem.Name, "Details", "SalesManager", new { id = item.ProductItemId }, null)
                 </p>
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ProductItem.price)
+                @Html.DisplayFor(modelItem => item.ProductItem.Price)
             </td>
             <td id="item-count-@item.RecordId">
                 @Html.DisplayFor(modelItem => item.Count)
@@ -103,5 +103,7 @@
         <td id="cart-total">
             @Model.CartTotal
         </td>
+    </tr>
+    
     </tr>
 </table>
