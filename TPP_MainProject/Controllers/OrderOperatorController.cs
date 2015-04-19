@@ -62,7 +62,7 @@ namespace TPP_MainProject.Controllers
 
                 ord.orderStartus = OrderStatus.Processiong;
                 unitOfWork.OrderRepository.Update(ord);
-
+                
              
                 pro.order = ord;
                 pro.costs = ord.Total;

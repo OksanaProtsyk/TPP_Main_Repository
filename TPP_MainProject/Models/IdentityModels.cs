@@ -233,7 +233,7 @@ namespace TPP_MainProject.Models
             success = this.AddUserToRole(userManager, user12.Id, RolesConst.ORDER_OPERATOR);
             if (!success) return success;
 
-            Catagorie cat1 = new Catagorie()
+          /*  Catagorie cat1 = new Catagorie()
             {
                 Name = "Visitka"
             };
@@ -244,14 +244,14 @@ namespace TPP_MainProject.Models
             this.Catagories.Add(cat1);
             this.Catagories.Add(blog);
             this.SaveChanges();
+           * */
             ProductItem item1 = new ProductItem()
             {
                 Name = "Шаблон 1",
                 Price = 100,
                 shortDescription = "blabla",
                 description = "blablaballll",
-                CatagorieId = cat1.ID,
-                Catagorie = cat1
+                Categorie = TemplateSiteTypes.Blog
             };
             ProductItem item2 = new ProductItem()
             {
@@ -259,8 +259,7 @@ namespace TPP_MainProject.Models
                 Price = 234,
                 shortDescription = "blabla",
                 description = "blablaballll",
-                CatagorieId = blog.ID,
-                Catagorie = blog
+                Categorie = TemplateSiteTypes.Shop
             };
             this.ProductItems.Add(item1);
             this.ProductItems.Add(item2);

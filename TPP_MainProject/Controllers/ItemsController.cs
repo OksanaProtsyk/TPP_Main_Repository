@@ -43,7 +43,7 @@ namespace OpenOrderFramework.Controllers
             if (!String.IsNullOrEmpty(searchString))
             {
                 items = items.Where(s => s.Name.ToUpper().Contains(searchString.ToUpper())
-                                       || s.Catagorie.Name.ToUpper().Contains(searchString.ToUpper()));
+                                       || s.Categorie.ToString().ToUpper().Contains(searchString.ToUpper()));
             }
             switch (sortOrder)
             {

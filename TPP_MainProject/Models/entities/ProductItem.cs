@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TPP_MainProject.Models.constants;
 
 namespace TPP_MainProject.Models.entities
 {
@@ -30,8 +31,9 @@ namespace TPP_MainProject.Models.entities
             return Name + " " + Price + " " +description;
         }
 
-        [DisplayName("Catagorie")]
+     /*   [DisplayName("Catagorie")]
         public int CatagorieId { get; set; }
+      * */
 
         public byte[] InternalImage { get; set; }
 
@@ -68,8 +70,11 @@ namespace TPP_MainProject.Models.entities
         [StringLength(1024)]
         public string ItemPictureUrl { get; set; }
 
-        public virtual Catagorie Catagorie { get; set; }
+     /*  public virtual Catagorie Catagorie { get; set; }
+      * */
         public virtual List<OrderDetail> OrderDetails { get; set; }
+
+        public TemplateSiteTypes Categorie { get; set; }
 
     }
 
