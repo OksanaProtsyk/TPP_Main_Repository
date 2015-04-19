@@ -1,38 +1,64 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 using TPP_MainProject.Models.entities;
 using TPP_MainProject.Models;
 using TPP_MainProject.Models.repository;
-using TPP_MainProject.Models.constants;
 
 namespace TPP_MainProject.Controllers
 {
     public class ProgrammerController : Controller
     {
         UnitOfWork unitOfWork = new UnitOfWork();
+        private ApplicationDbContext _db = new ApplicationDbContext();
 
-        public ActionResult Index(WorkItem model)
+       /* public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-
-            IEnumerable<WorkItem> workItems = unitOfWork.WorkItemRepository.Get().ToList();
-
-            var @workItem = new WorkItem()
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            if (searchString != null)
             {
-                Id = model.Id,
-                Name = "DefaultWorkItem",
-                Description = "DefaultWorkItemDescription",
-                DueDate = new DateTime().ToLocalTime(),
-                Status = TaskStatus.Completed,
-                
-            };
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
 
-            unitOfWork.WorkItemRepository.Insert(@workItem);
+            ViewBag.CurrentFilter = searchString;
+            var workItemList = new Collection<WorkItem>();
+            var workI = from s in _db.
+                           select s;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                workI = workI.Where(s => s.Name.ToUpper().Contains(searchString.ToUpper()));
+            }
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    workI = workI.OrderByDescending(s => s.Name);
+                    break;
+                default:
+                    workI = workI.OrderBy(s => s.Name);
+                    break;
+            }
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            return View(workI.ToPagedList(pageNumber, pageSize));
+
+            //return View(unitOfWork.ProductItemRepository.Get().ToList());
+        } */
+     public ActionResult Index()
+        {
+          
+            IEnumerable<WorkItem> workItems =  unitOfWork.WorkItemRepository.Get();
             return View(workItems);
         }
 
@@ -76,17 +102,15 @@ namespace TPP_MainProject.Controllers
         // GET: /Worker/Edit/5
         public ActionResult Edit(string id)
         {
-           
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-             WorkItem @workItem = unitOfWork.WorkItemRepository.GetByID(id);
-            if (@workItem == null)
-           
-            {
-                return HttpNotFound();
-            }
+            //if (id == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
+            //Worker worker = db.Users.Find(id);
+            //if (worker == null)
+            //{
+            //    return HttpNotFound();
+            //}
             return View();
         }
 
@@ -140,7 +164,5 @@ namespace TPP_MainProject.Controllers
             }
             base.Dispose(disposing);
         }
-
-        public int AssignedWorker_Id { get; set; }
     }
 }
