@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using TPP_MainProject.Models.entities;
 using TPP_MainProject.Models;
 using TPP_MainProject.Models.repository;
+using TPP_MainProject.Models.constants;
 
 namespace TPP_MainProject.Controllers
 {
@@ -16,10 +17,22 @@ namespace TPP_MainProject.Controllers
     {
         UnitOfWork unitOfWork = new UnitOfWork();
 
-        public ActionResult Index()
+        public ActionResult Index(WorkItem model)
         {
-          
-            IEnumerable<WorkItem> workItems =  unitOfWork.WorkItemRepository.Get();
+
+            IEnumerable<WorkItem> workItems = unitOfWork.WorkItemRepository.Get().ToList();
+
+            var @workItem = new WorkItem()
+            {
+                Id = model.Id,
+                Name = "DefaultWorkItem",
+                Description = "DefaultWorkItemDescription",
+                DueDate = new DateTime().ToLocalTime(),
+                Status = TaskStatus.Completed,
+                
+            };
+
+            unitOfWork.WorkItemRepository.Insert(@workItem);
             return View(workItems);
         }
 
@@ -63,15 +76,17 @@ namespace TPP_MainProject.Controllers
         // GET: /Worker/Edit/5
         public ActionResult Edit(string id)
         {
-            //if (id == null)
-            //{
-            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            //}
-            //Worker worker = db.Users.Find(id);
-            //if (worker == null)
-            //{
-            //    return HttpNotFound();
-            //}
+           
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+             WorkItem @workItem = unitOfWork.WorkItemRepository.GetByID(id);
+            if (@workItem == null)
+           
+            {
+                return HttpNotFound();
+            }
             return View();
         }
 
@@ -125,5 +140,7 @@ namespace TPP_MainProject.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public int AssignedWorker_Id { get; set; }
     }
 }
