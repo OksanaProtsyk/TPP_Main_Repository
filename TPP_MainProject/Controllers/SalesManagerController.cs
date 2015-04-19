@@ -39,15 +39,15 @@ namespace TPP_MainProject.Controllers
                 select s;
             if (!String.IsNullOrEmpty(searchString))
             {
-                productI = productI.Where(s => s.name.ToUpper().Contains(searchString.ToUpper()));
+                productI = productI.Where(s => s.Name.ToUpper().Contains(searchString.ToUpper()));
             }
             switch (sortOrder)
             {
                 case "name_desc":
-                    productI = productI.OrderByDescending(s => s.name);
+                    productI = productI.OrderByDescending(s => s.Name);
                     break;
                 default:
-                    productI = productI.OrderBy(s => s.name);
+                    productI = productI.OrderBy(s => s.Name);
                     break;
             }
             int pageSize = 10;

@@ -25,7 +25,7 @@ namespace TPP_MainProject.Controllers
     {        
         private ApplicationUserManager _userManager;
         private UnitOfWork unityOfWork = new UnitOfWork();
-        ApplicationUser user;
+       // ApplicationUser user;
 
         public AdminUserController()
         { }

@@ -172,7 +172,9 @@
     <Compile Include="Controllers\AdminUserController.cs" />
     <Compile Include="Controllers\CheckoutController.cs" />
     <Compile Include="Controllers\DistributorController.cs" />
+    <Compile Include="Controllers\FilterProviderCollection.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ItemsController.cs" />
     <Compile Include="Controllers\OperatorController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\OrderOperatorController.cs" />
@@ -180,6 +182,7 @@
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\ProgrammerController.cs" />
     <Compile Include="Controllers\SalesManagerController.cs" />
+    <Compile Include="Controllers\ShoppingCartController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -191,6 +194,7 @@
     <Compile Include="Models\entities\ApplicationUser.cs" />
     <Compile Include="Models\entities\ApplicationUserRole.cs" />
     <Compile Include="Models\entities\Cart.cs" />
+    <Compile Include="Models\entities\Catagorie.cs" />
     <Compile Include="Models\entities\Customer.cs" />
     <Compile Include="Models\entities\HR.cs" />
     <Compile Include="Models\entities\Manager.cs" />
@@ -202,6 +206,7 @@
     <Compile Include="Models\entities\Project.cs" />
     <Compile Include="Models\entities\ResourceManager.cs" />
     <Compile Include="Models\entities\Resourse.cs" />
+    <Compile Include="Models\entities\ShoppingCart.cs" />
     <Compile Include="Models\entities\WorkItem.cs" />
     <Compile Include="Models\entities\Worker.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -240,7 +245,12 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Views\Home\businesses.png" />
     <Content Include="Views\Home\choose.png" />
+    <Content Include="Views\Home\ContactUs.png" />
+    <Content Include="Views\Home\Get_Started.png" />
+    <Content Include="Views\Home\go_shopping.png" />
+    <Content Include="Views\Home\Web-Hosting.png" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -305,10 +315,14 @@
     <Content Include="Views\SalesManager\Index.cshtml" />
     <Content Include="Views\Order\Index.cshtml" />
     <Content Include="Views\Order\Items.cshtml" />
-    <Content Include="Views\Checkout\AddressAndPayment.cshtml" />
-    <Content Include="Views\Checkout\Complete.cshtml" />
     <Content Include="Views\OrderOperator\Index.cshtml" />
     <Content Include="Views\OrderOperator\Confrim.cshtml" />
+    <Content Include="Views\ShoppingCart\CartSummary.cshtml" />
+    <Content Include="Views\ShoppingCart\Index.cshtml" />
+    <Content Include="Views\Items\Details.cshtml" />
+    <Content Include="Views\Items\Index.cshtml" />
+    <Content Include="Views\Checkout\AddressAndPayment.cshtml" />
+    <Content Include="Views\Checkout\Complete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

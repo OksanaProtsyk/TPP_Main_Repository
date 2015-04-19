@@ -19,7 +19,33 @@ namespace TPP_MainProject.Models.repository
         private GenericRepository<Project> projectRepository;
         private GenericRepository<Cart> cartRepository;
         private GenericRepository<Manager> managerRepository;
+        private GenericRepository<Catagorie> catagorieRepository;
+        private GenericRepository<Customer> customerRepository;
+        public GenericRepository<Customer> CustomerRepository
+        {
+            get
+            {
 
+                if (this.customerRepository == null)
+                {
+                    this.customerRepository = new GenericRepository<Customer>(context);
+                }
+                return customerRepository;
+            }
+        }
+
+        public GenericRepository<Catagorie> CatagorieRepositpry
+        {
+            get
+            {
+
+                if (this.catagorieRepository == null)
+                {
+                    this.catagorieRepository = new GenericRepository<Catagorie>(context);
+                }
+                return catagorieRepository;
+            }
+        }
         public GenericRepository<OrderDetail> OrderDetailRepository
         {
             get

@@ -3,44 +3,49 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using TPP_MainProject.Models.entities;
 using TPP_MainProject.Models.repository;
 
-namespace TPP_MainProject.Models
+namespace TPP_MainProject.Models.entities
 {
-    public class OrderCart{
-        UnitOfWork unitOfWork = new UnitOfWork();
-        string OrderCartId { get; set; }
+    public partial class ShoppingCart
+    {
+        UnitOfWork unityOfWork = new UnitOfWork();
+       // ApplicationDbContext storeDB = new ApplicationDbContext();
+        string ShoppingCartId { get; set; }
         public const string CartSessionKey = "CartId";
-        public static OrderCart GetCart(HttpContextBase context)
+
+        public static ShoppingCart GetCart(HttpContextBase context)
         {
-            var cart = new OrderCart();
-            cart.OrderCartId = cart.GetCartId(context);
+            var cart = new ShoppingCart();
+            cart.ShoppingCartId = cart.GetCartId(context);
             return cart;
         }
+
         // Helper method to simplify shopping cart calls
-        public static OrderCart GetCart(Controller controller)
+        public static ShoppingCart GetCart(Controller controller)
         {
             return GetCart(controller.HttpContext);
         }
-        public void AddToCart(ProductItem productItem)
+
+        public int AddToCart(ProductItem item)
         {
-            // Get the matching cart and album instances
-            var cartItem = unitOfWork.CartRepository.Get().ToList<Cart>().SingleOrDefault(
-                c => c.CartId == OrderCartId 
-                && c.ProductItemId == productItem.ID);
- 
+            // Get the matching cart and item instances
+            var cartItem = unityOfWork.CartRepository.dbSet.SingleOrDefault(
+                c => c.CartId == ShoppingCartId
+                && c.ProductItemId == item.ID);
+
             if (cartItem == null)
             {
                 // Create a new cart item if no cart item exists
                 cartItem = new Cart
                 {
-                    ProductItemId = productItem.ID,
-                    CartId = OrderCartId,
+                    ProductItemId = item.ID,
+                    CartId = ShoppingCartId,
                     Count = 1,
                     DateCreated = DateTime.Now
                 };
-               unitOfWork.CartRepository.Insert(cartItem);
+                unityOfWork.CartRepository.dbSet.Add(cartItem);
+               // storeDB.Carts.Add(cartItem);
             }
             else
             {
@@ -49,17 +54,25 @@ namespace TPP_MainProject.Models
                 cartItem.Count++;
             }
             // Save changes
-            unitOfWork.Save();
+            unityOfWork.Save();
+           // storeDB.SaveChanges();
+
+            return cartItem.Count;
         }
+
         public int RemoveFromCart(int id)
         {
+
+
             // Get the cart
-            var cartItem = unitOfWork.CartRepository.Get().ToList<Cart>().Single(
-                cart => cart.CartId == OrderCartId 
-                && cart.RecordId == id);
- 
+
+            var cartItem = unityOfWork.CartRepository.dbSet.Single(
+                cart => cart.CartId == ShoppingCartId
+                && cart.ProductItemId == id);
+
+
             int itemCount = 0;
- 
+
             if (cartItem != null)
             {
                 if (cartItem.Count > 1)
@@ -69,55 +82,64 @@ namespace TPP_MainProject.Models
                 }
                 else
                 {
-                    unitOfWork.CartRepository.Delete(cartItem);
+                    unityOfWork.CartRepository.Delete(cartItem);
+                   // storeDB.Carts.Remove(cartItem);
                 }
                 // Save changes
-                unitOfWork.Save();
+                unityOfWork.Save();
+                //storeDB.SaveChanges();
             }
             return itemCount;
         }
+
         public void EmptyCart()
         {
-            var cartItems =unitOfWork.CartRepository.dbSet.Where(
-                cart => cart.CartId == OrderCartId);
- 
+            var cartItems = unityOfWork.CartRepository.dbSet.Where(
+                cart => cart.CartId == ShoppingCartId);
+
             foreach (var cartItem in cartItems)
             {
-                unitOfWork.CartRepository.Delete(cartItem);
+                unityOfWork.CartRepository.Delete(cartItem);
             }
             // Save changes
-            unitOfWork.Save();
+            unityOfWork.Save();
+            //storeDB.SaveChanges();
         }
+
         public List<Cart> GetCartItems()
         {
-            return unitOfWork.CartRepository.dbSet.Where(
-                cart => cart.CartId == OrderCartId).ToList();
+            return unityOfWork.CartRepository.dbSet.Where(
+                cart => cart.CartId == ShoppingCartId).ToList();
         }
+
         public int GetCount()
         {
             // Get the count of each item in the cart and sum them up
-            int? count = (from cartItems in unitOfWork.CartRepository.dbSet
-                          where cartItems.CartId == OrderCartId
+            int? count = (from cartItems in unityOfWork.CartRepository.dbSet
+                          where cartItems.CartId == ShoppingCartId
                           select (int?)cartItems.Count).Sum();
             // Return 0 if all entries are null
             return count ?? 0;
         }
+
         public decimal GetTotal()
         {
-            // Multiply album price by count of that album to get 
-            // the current price for each of those albums in the cart
-            // sum all album price totals to get the cart total
-            decimal? total = (from cartItems in unitOfWork.CartRepository.dbSet
-                              where cartItems.CartId == OrderCartId
+            // Multiply item price by count of that item to get 
+            // the current price for each of those items in the cart
+            // sum all item price totals to get the cart total
+            decimal? total = (from cartItems in unityOfWork.CartRepository.dbSet
+                              where cartItems.CartId == ShoppingCartId
                               select (int?)cartItems.Count *
                               cartItems.ProductItem.Price).Sum();
 
             return total ?? decimal.Zero;
         }
-        public int CreateOrder(Order order)
+
+        public Order CreateOrder(Order order)
         {
             decimal orderTotal = 0;
- 
+            order.OrderDetails = new List<OrderDetail>();
+
             var cartItems = GetCartItems();
             // Iterate over the items in the cart, 
             // adding the order details for each
@@ -130,23 +152,24 @@ namespace TPP_MainProject.Models
                     UnitPrice = item.ProductItem.Price,
                     Quantity = item.Count
                 };
-                
-                //order.orderItems.Add(item.ProductItem);
                 // Set the order total of the shopping cart
                 orderTotal += (item.Count * item.ProductItem.Price);
+                order.OrderDetails.Add(orderDetail);
+                unityOfWork.OrderDetailRepository.Insert(orderDetail);
 
-                unitOfWork.OrderDetailRepository.Insert(orderDetail);
- 
             }
             // Set the order's total to the orderTotal count
             order.Total = orderTotal;
 
-          
+            // Save the order
+            unityOfWork.Save();
+            //storeDB.SaveChanges();
             // Empty the shopping cart
             EmptyCart();
             // Return the OrderId as the confirmation number
-            return order.OrderId;
+            return order;
         }
+
         // We're using HttpContextBase to allow access to cookies.
         public string GetCartId(HttpContextBase context)
         {
@@ -167,18 +190,20 @@ namespace TPP_MainProject.Models
             }
             return context.Session[CartSessionKey].ToString();
         }
+
         // When a user has logged in, migrate their shopping cart to
         // be associated with their username
         public void MigrateCart(string userName)
         {
-            var OrderCart = unitOfWork.CartRepository.dbSet.Where(
-                c => c.CartId == OrderCartId);
- 
-            foreach (Cart item in OrderCart)
+            var shoppingCart = unityOfWork.CartRepository.dbSet.Where(
+                c => c.CartId == ShoppingCartId);
+
+            foreach (Cart item in shoppingCart)
             {
                 item.CartId = userName;
             }
-            unitOfWork.Save();
+            unityOfWork.Save();
+            //storeDB.SaveChanges();
         }
     }
 }
