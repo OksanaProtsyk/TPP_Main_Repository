@@ -52,7 +52,7 @@ namespace TPP_MainProject.Controllers
             }
             int pageSize = 10;
             int pageNumber = (page ?? 1);
-            return View(productItemList.ToPagedList(pageNumber, pageSize));
+            return View(productI.ToPagedList(pageNumber, pageSize));
             
             //return View(unitOfWork.ProductItemRepository.Get().ToList());
         }
