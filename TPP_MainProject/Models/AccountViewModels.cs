@@ -2,6 +2,32 @@
 
 namespace TPP_MainProject.Models
 {
+
+    public class GuestViewModel
+    {
+        [Required]
+        [Display(Name = "Email")]
+        public string GuestAcct { get; set; }
+
+        [Required]
+        [Display(Name = "Password")]
+        public string GuestPassword { get; set; }
+
+    }
+
+    public class VerifyCodeViewModel
+    {
+        [Required]
+        public string Provider { get; set; }
+
+        [Required]
+        [Display(Name = "Code")]
+        public string Code { get; set; }
+        public string ReturnUrl { get; set; }
+
+        [Display(Name = "Remember this browser?")]
+        public bool RememberBrowser { get; set; }
+    }
     public class ExternalLoginConfirmationViewModel
     {
         [Required]
