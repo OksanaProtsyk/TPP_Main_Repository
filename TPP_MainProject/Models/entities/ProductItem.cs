@@ -27,7 +27,7 @@ namespace TPP_MainProject.Models.entities
         public decimal Price { get; set;}
         public String toString()
         {
-            return Name + " " + Price;
+            return Name + " " + Price + " " +description;
         }
 
         [DisplayName("Catagorie")]
@@ -70,6 +70,7 @@ namespace TPP_MainProject.Models.entities
 
         public virtual Catagorie Catagorie { get; set; }
         public virtual List<OrderDetail> OrderDetails { get; set; }
+
     }
 
 }

@@ -14,5 +14,10 @@ namespace TPP_MainProject.Models.entities
         public decimal UnitPrice { get; set; }
         public virtual ProductItem Item { get; set; }
         public virtual Order Order { get; set; }
+
+        public string toString()
+        {
+            return Item.Name+" " + Quantity + " * "+ Item.Price;
+        }
     }
 }
