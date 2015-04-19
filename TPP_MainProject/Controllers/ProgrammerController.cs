@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 using TPP_MainProject.Models.entities;
 using TPP_MainProject.Models;
 using TPP_MainProject.Models.repository;
@@ -15,8 +17,45 @@ namespace TPP_MainProject.Controllers
     public class ProgrammerController : Controller
     {
         UnitOfWork unitOfWork = new UnitOfWork();
+        private ApplicationDbContext _db = new ApplicationDbContext();
 
-        public ActionResult Index()
+       /* public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
+        {
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+            var workItemList = new Collection<WorkItem>();
+            var workI = from s in _db.
+                           select s;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                workI = workI.Where(s => s.Name.ToUpper().Contains(searchString.ToUpper()));
+            }
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    workI = workI.OrderByDescending(s => s.Name);
+                    break;
+                default:
+                    workI = workI.OrderBy(s => s.Name);
+                    break;
+            }
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            return View(workI.ToPagedList(pageNumber, pageSize));
+
+            //return View(unitOfWork.ProductItemRepository.Get().ToList());
+        } */
+     public ActionResult Index()
         {
           
             IEnumerable<WorkItem> workItems =  unitOfWork.WorkItemRepository.Get();

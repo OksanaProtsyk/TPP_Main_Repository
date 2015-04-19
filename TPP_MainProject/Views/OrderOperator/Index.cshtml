@@ -1,0 +1,54 @@
+﻿@model IEnumerable<TPP_MainProject.Models.entities.Order>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.orderDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.completeDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.orderStartus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.detailDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Total)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.orderDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.completeDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.orderStartus)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.detailDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Total)
+        </td>
+        <td>
+            <input type="submit" value="Make Project" onclick="location.href='@Url.Action("Confrim", "OrderOperator", new { id = item.id })'" class="btn btn-default" />
+            <input type="submit"  value="Reject" onclick="location.href='@Url.Action("Reject", "OrderOperator", new { id = item.id })'"  class="btn btn-default" />
+        </td>
+    </tr>
+}
+
+</table>

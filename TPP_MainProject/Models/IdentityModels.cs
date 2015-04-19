@@ -71,7 +71,7 @@ namespace TPP_MainProject.Models
         {
 
             bool success = false;
-#if DEBUG
+
             ApplicationRoleManager _roleManager = new ApplicationRoleManager(new RoleStore<ApplicationRole>(context));
 
             success = this.CreateRole(_roleManager, RolesConst.ADMIN, "Global Access");
@@ -192,26 +192,28 @@ namespace TPP_MainProject.Models
             IdentityResult result9 = userManager.Create(user9, "Pas@123");
             success = this.AddUserToRole(userManager, user9.Id, RolesConst.CUSTOMER);
             if (!success) return success;
+
             ApplicationUser user10 = new ApplicationUser();
             PasswordHasher passwordHasher10 = new PasswordHasher();
-            user10.UserName = "customer3@gmail.com";
-            user10.Email = "customer3@gmail.com";
-            user10.RoleName = RolesConst.CUSTOMER;
-            user10.FistName = RolesConst.CUSTOMER;
-            user10.LastName = RolesConst.CUSTOMER;
+            user10.UserName = "manager@gmail.com";
+            user10.Email = "manager@gmail.com";
+            user10.RoleName = RolesConst.MANAGER;
+            user10.FistName = RolesConst.MANAGER;
+            user10.LastName = RolesConst.MANAGER;
             IdentityResult result10 = userManager.Create(user10, "Pas@123");
-            success = this.AddUserToRole(userManager, user10.Id, RolesConst.CUSTOMER);
+            success = this.AddUserToRole(userManager, user10.Id, RolesConst.MANAGER);
+
             if (!success) return success;
 
             ApplicationUser user11 = new ApplicationUser();
             PasswordHasher passwordHaser11 = new PasswordHasher();
             user11.UserName = "customer4@gmail.com";
             user11.Email = "customer4@gmail.com";
-            user11.RoleName = RolesConst.Sales_MANAGER;
-            user11.FistName = RolesConst.Sales_MANAGER;
-            user11.LastName = RolesConst.Sales_MANAGER;
+            user11.RoleName = RolesConst.MANAGER;
+            user11.FistName = RolesConst.MANAGER;
+            user11.LastName = RolesConst.MANAGER + " II";
             IdentityResult result11 = userManager.Create(user11, "Pas@123");
-            success = this.AddUserToRole(userManager, user11.Id, RolesConst.CUSTOMER);
+            success = this.AddUserToRole(userManager, user11.Id, RolesConst.MANAGER);
             if (!success) return success;
 
             ProductItem item1 = new ProductItem()
@@ -230,9 +232,86 @@ namespace TPP_MainProject.Models
             };
             this.ProductItems.Add(item1);
             this.ProductItems.Add(item2);
-            this.SaveChanges();
 
-#endif
+          /*  WorkItem item11 = new WorkItem()
+            {
+                Name = "Шаблон 1",
+                Description = "blabla",
+                // hours, minutes, seconds
+                DueDate = DateTime.Today + (new TimeSpan(12, 20, 20)),
+
+            };
+            this.WorkItem.Add(item11);
+
+              //  DueDate = new DateTime(2015,05,12);
+               
+    */
+         
+
+            Resourse r1 = new Resourse() { 
+                 Name = "Reorce",
+                 Price = 20,
+                 Description = "One the rule them all "
+                  
+            };
+            Resourse r2 = new Resourse()
+            {
+                Name = "Reorce2",
+                Price = 40,
+                Description = "One the rule them all "
+
+            };
+            
+            this.Resources.Add(r1);
+            this.Resources.Add(r2);
+
+            Order or1 = new Order()
+            {
+                completeDate = DateTime.Now,
+                orderDate =  DateTime.Now,
+                detailDescription = "mememe",
+                orderStartus = OrderStatus.Initiating,
+                Total = 200,
+                customer = new Customer()
+                {
+                    Email = "@",
+                    FistName = "A",
+                    LastName = "B",
+                    RoleName = RolesConst.CUSTOMER,
+                    UserName = "Nam"
+                }
+
+            };
+
+
+            this.Orders.Add(or1);
+
+            Order or2 = new Order()
+            {
+                completeDate = DateTime.Now,
+                orderDate = DateTime.Now,
+                detailDescription = "nyanyayna",
+                orderStartus = OrderStatus.Processiong,
+                Total = 150,
+          
+
+            };
+
+            Order or3 = new Order()
+            {
+                completeDate = DateTime.Now,
+                orderDate = DateTime.Now,
+                detailDescription = "sysysy",
+                orderStartus = OrderStatus.Initiating,
+                Total = 600,
+               
+
+            };
+
+            this.Orders.Add(or2);
+            this.Orders.Add(or3);
+
+            this.SaveChanges();
             return success;
 
         }
@@ -305,10 +384,12 @@ namespace TPP_MainProject.Models
 
         public System.Data.Entity.DbSet<TPP_MainProject.Models.entities.Operator> ApplicationUsers { get; set; }
 
-        public System.Data.Entity.DbSet<TPP_MainProject.Models.entities.Resourse> Resource { get; set; }
+        public System.Data.Entity.DbSet<TPP_MainProject.Models.entities.Resourse> Resources { get; set; }
 
         public System.Data.Entity.DbSet<TPP_MainProject.Models.entities.Order> Orders { get; set; }
 
         public System.Data.Entity.DbSet<TPP_MainProject.Models.entities.ProductItem> ProductItems { get; set; }
+
+        public System.Data.Entity.DbSet<TPP_MainProject.Models.entities.Project> Projects { get; set; }
     }   
 }

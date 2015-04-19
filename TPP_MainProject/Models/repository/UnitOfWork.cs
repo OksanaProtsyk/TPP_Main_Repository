@@ -16,7 +16,10 @@ namespace TPP_MainProject.Models.repository
         private GenericRepository<Resourse> resourceRepository;
         private GenericRepository<ProductItem> productItemRepository;
         private GenericRepository<OrderDetail> orderDetailsRepository;
+        private GenericRepository<Project> projectRepository;
         private GenericRepository<Cart> cartRepository;
+        private GenericRepository<Manager> managerRepository;
+
         public GenericRepository<OrderDetail> OrderDetailRepository
         {
             get
@@ -55,6 +58,31 @@ namespace TPP_MainProject.Models.repository
             }
         }
 
+        public GenericRepository<Project> ProjectRepository
+        {
+            get
+            {
+
+                if (this.projectRepository == null)
+                {
+                    this.projectRepository = new GenericRepository<Project>(context);
+                }
+                return projectRepository;
+            }
+        }
+
+        public GenericRepository<Manager> ManagerRepository
+        {
+            get
+            {
+
+                if (this.managerRepository == null)
+                {
+                    this.managerRepository = new GenericRepository<Manager>(context);
+                }
+                return managerRepository;
+            }
+        }
         public GenericRepository<Resourse> ResourceRepository
         {
             get
