@@ -27,18 +27,18 @@ namespace TPP_MainProject.Controllers
         }
 
         // GET: /Customer/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int id)
         {
-            if (id == null)
+            if (id == 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Order order = db.Orders.Find(id);
-            if (order == null)
+            ProductItem productItem = unityOfWork.ProductItemRepository.GetByID(id);
+            if (productItem == null)
             {
                 return HttpNotFound();
             }
-            return View(order);
+            return View(productItem);
         }
 
         // GET: /Customer/Create
