@@ -240,7 +240,12 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Views\Home\businesses.png" />
     <Content Include="Views\Home\choose.png" />
+    <Content Include="Views\Home\ContactUs.png" />
+    <Content Include="Views\Home\Get_Started.png" />
+    <Content Include="Views\Home\go_shopping.png" />
+    <Content Include="Views\Home\Web-Hosting.png" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
