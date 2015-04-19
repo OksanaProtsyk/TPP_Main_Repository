@@ -233,7 +233,9 @@ namespace TPP_MainProject.Models
             success = this.AddUserToRole(userManager, user12.Id, RolesConst.ORDER_OPERATOR);
             if (!success) return success;
 
-          /*  Catagorie cat1 = new Catagorie()
+            
+
+            Catagorie cat1 = new Catagorie()
             {
                 Name = "Visitka"
             };
@@ -244,14 +246,14 @@ namespace TPP_MainProject.Models
             this.Catagories.Add(cat1);
             this.Catagories.Add(blog);
             this.SaveChanges();
-           * */
             ProductItem item1 = new ProductItem()
             {
                 Name = "Шаблон 1",
                 Price = 100,
                 shortDescription = "blabla",
                 description = "blablaballll",
-                Categorie = TemplateSiteTypes.Blog
+                CatagorieId = cat1.ID,
+                Catagorie = cat1
             };
             ProductItem item2 = new ProductItem()
             {
@@ -259,7 +261,8 @@ namespace TPP_MainProject.Models
                 Price = 234,
                 shortDescription = "blabla",
                 description = "blablaballll",
-                Categorie = TemplateSiteTypes.Shop
+                CatagorieId = blog.ID,
+                Catagorie = blog
             };
             this.ProductItems.Add(item1);
             this.ProductItems.Add(item2);
@@ -273,6 +276,28 @@ namespace TPP_MainProject.Models
                 Status = TaskStatus.InProgress
             };
             this.WorkItems.Add(workItem);
+
+            WorkItem workItem1 = new WorkItem()
+            {
+                Name = "Шаблон 2",
+                Description = "blablabla",
+                // hours, minutes, seconds
+                DueDate = DateTime.Today + (new TimeSpan(12, 20, 20)),
+                Status = TaskStatus.InProgress
+            };
+            this.WorkItems.Add(workItem);
+
+            this.SaveChanges();
+
+            WorkItem workItem1 = new WorkItem()
+            {
+                Name = "Icon",
+                Description = "wow",
+                // hours, minutes, seconds
+                DueDate = DateTime.Today + (new TimeSpan(12, 20, 20)),
+                Status = TaskStatus.InProgress
+            };
+            this.WorkItems.Add(workItem1);
             this.SaveChanges();
 
               //  DueDate = new DateTime(2015,05,12);
@@ -341,7 +366,22 @@ namespace TPP_MainProject.Models
             this.Orders.Add(or2);
             this.Orders.Add(or3);
 
+            Project project = new Project()
+            {
+                name = "MyProject",
+                nameProjectManager = "manager@gmail.com",
+                costs = 300,
+                projectStatus = ProjectStatus.Initial,
+                projectManager = user10,
+                order = or1,
+                tasks = new List<WorkItem>()
+            };
+            project.tasks.Add(workItem);
+            project.tasks.Add(workItem1);
+            this.Projects.Add(project);
+
             this.SaveChanges();
+
             return success;
 
         }

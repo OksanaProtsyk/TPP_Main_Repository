@@ -70,7 +70,7 @@ namespace TPP_MainProject.Controllers
                 IEnumerable<ApplicationUser> them =  unitOfWork.UserRepository.Get().Where(s => s.RoleName.Equals(RolesConst.MANAGER));
                 foreach (ApplicationUser manager in them)
                 {
-                    if (manager.LastName.Equals(pro.nameProjectManager))
+                    if (manager.UserName.Equals(pro.nameProjectManager))
                         pro.projectManager = manager;
                 }
               
