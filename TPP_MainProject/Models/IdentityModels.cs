@@ -252,8 +252,8 @@ namespace TPP_MainProject.Models
                 Price = 100,
                 shortDescription = "blabla",
                 description = "blablaballll",
-                CatagorieId = cat1.ID,
-                Catagorie = cat1
+                Categorie = TemplateSiteTypes.Shop
+              
             };
             ProductItem item2 = new ProductItem()
             {
@@ -261,8 +261,7 @@ namespace TPP_MainProject.Models
                 Price = 234,
                 shortDescription = "blabla",
                 description = "blablaballll",
-                CatagorieId = blog.ID,
-                Catagorie = blog
+                Categorie = TemplateSiteTypes.VisitCard
             };
             this.ProductItems.Add(item1);
             this.ProductItems.Add(item2);
@@ -289,7 +288,7 @@ namespace TPP_MainProject.Models
 
             this.SaveChanges();
 
-            WorkItem workItem1 = new WorkItem()
+            WorkItem workItem2 = new WorkItem()
             {
                 Name = "Icon",
                 Description = "wow",
@@ -297,7 +296,7 @@ namespace TPP_MainProject.Models
                 DueDate = DateTime.Today + (new TimeSpan(12, 20, 20)),
                 Status = TaskStatus.InProgress
             };
-            this.WorkItems.Add(workItem1);
+            this.WorkItems.Add(workItem2);
             this.SaveChanges();
 
               //  DueDate = new DateTime(2015,05,12);

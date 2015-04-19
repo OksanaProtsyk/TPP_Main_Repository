@@ -15,6 +15,8 @@ namespace TPP_MainProject.Models.entities
         public TaskStatus Status { get; set; }
         public virtual ApplicationUser AssignedWorker { get; set; }
         public virtual Project assignedProject { get; set; }
+        public decimal Price { get; set; }
+
     
     }
 }
