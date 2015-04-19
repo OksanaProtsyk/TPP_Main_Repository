@@ -289,6 +289,17 @@ namespace TPP_MainProject.Models
 
             this.SaveChanges();
 
+            WorkItem workItem1 = new WorkItem()
+            {
+                Name = "Icon",
+                Description = "wow",
+                // hours, minutes, seconds
+                DueDate = DateTime.Today + (new TimeSpan(12, 20, 20)),
+                Status = TaskStatus.InProgress
+            };
+            this.WorkItems.Add(workItem1);
+            this.SaveChanges();
+
               //  DueDate = new DateTime(2015,05,12);
          
 

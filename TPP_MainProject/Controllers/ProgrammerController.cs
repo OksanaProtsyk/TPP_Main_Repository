@@ -7,10 +7,13 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.Ajax.Utilities;
 using PagedList;
 using TPP_MainProject.Models.entities;
 using TPP_MainProject.Models;
+using TPP_MainProject.Models.constants;
 using TPP_MainProject.Models.repository;
+using TPP_MainProject.Models.ViewModels;
 
 namespace TPP_MainProject.Controllers
 {
@@ -19,7 +22,7 @@ namespace TPP_MainProject.Controllers
         UnitOfWork unitOfWork = new UnitOfWork();
         private ApplicationDbContext _db = new ApplicationDbContext();
 
-       /* public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
             ViewBag.CurrentSort = sortOrder;
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
@@ -34,46 +37,47 @@ namespace TPP_MainProject.Controllers
 
             ViewBag.CurrentFilter = searchString;
             var workItemList = new Collection<WorkItem>();
-            var workI = from s in _db.
+            var workI1 = from s in _db.WorkItems
                            select s;
             if (!String.IsNullOrEmpty(searchString))
             {
-                workI = workI.Where(s => s.Name.ToUpper().Contains(searchString.ToUpper()));
+                workI1 = workI1.Where(s => s.Name.ToUpper().Contains(searchString.ToUpper()));
             }
             switch (sortOrder)
             {
                 case "name_desc":
-                    workI = workI.OrderByDescending(s => s.Name);
+                    workI1 = workI1.OrderByDescending(s => s.Name);
                     break;
                 default:
-                    workI = workI.OrderBy(s => s.Name);
+                    workI1 = workI1.OrderBy(s => s.Name);
                     break;
             }
             int pageSize = 10;
             int pageNumber = (page ?? 1);
-            return View(workI.ToPagedList(pageNumber, pageSize));
+            return View(workI1.ToPagedList(pageNumber, pageSize));
 
             //return View(unitOfWork.ProductItemRepository.Get().ToList());
-        } */
-     public ActionResult Index()
+        } 
+    /* public ActionResult Index()
         {
           
             IEnumerable<WorkItem> workItems =  unitOfWork.WorkItemRepository.Get();
             return View(workItems);
         }
+     * */
 
-        public ActionResult Details(string id)
+     public ActionResult Details(int id)
         {
            if (id == null)
             {
                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-           WorkItem workItem = unitOfWork.WorkItemRepository.GetByID(id);
+            WorkItem workItem = unitOfWork.WorkItemRepository.GetByID(id);
             if (workItem == null)
             {
                   return HttpNotFound();
             }
-            return View();
+            return View(workItem);
         }
 
         // GET: /Worker/Create
@@ -92,7 +96,7 @@ namespace TPP_MainProject.Controllers
             if (ModelState.IsValid)
             {
                 //db.Users.Add(worker);
-             //   db.SaveChanges();
+              //db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -100,18 +104,36 @@ namespace TPP_MainProject.Controllers
         }
 
         // GET: /Worker/Edit/5
-        public ActionResult Edit(string id)
+        public ActionResult Edit(int  id)
         {
-            //if (id == null)
-            //{
-            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            //}
-            //Worker worker = db.Users.Find(id);
-            //if (worker == null)
-            //{
-            //    return HttpNotFound();
-            //}
-            return View();
+            WorkItem workI = unitOfWork.WorkItemRepository.GetByID(id);
+            
+            ViewBag.ps = (IEnumerable<TaskStatus>)Enum.GetValues(typeof(TaskStatus));
+            if (workI == null)
+            {
+               return HttpNotFound();
+            }
+            return View(workI);
+            //return View(new WorkItemViewModel(workI));
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(WorkItem model)
+        {
+            if (ModelState.IsValid)
+            {
+                var workI = unitOfWork.WorkItemRepository.GetByID(model.Id);
+                 workI.Status= model.Status;
+                 unitOfWork.WorkItemRepository.Update(workI);
+                unitOfWork.Save();
+
+                // _db.Entry(user).State = EntityState.Modified;
+
+                // TODO
+                // _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(model);
         }
 
         // POST: /Worker/Edit/5
@@ -131,19 +153,15 @@ namespace TPP_MainProject.Controllers
         //}
 
         //// GET: /Worker/Delete/5
-        //public ActionResult Delete(string id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    Worker worker = db.Users.Find(id);
-        //    if (worker == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(worker);
-        //}
+       /* public ActionResult Delete(int id)
+        {
+            WorkItem workI = unitOfWork.WorkItemRepository.GetByID(id);
+            if (workI == null)
+            {
+                return HttpNotFound();
+            }
+            return View(workI);
+        }*/
 
         //// POST: /Worker/Delete/5
         //[HttpPost, ActionName("Delete")]
