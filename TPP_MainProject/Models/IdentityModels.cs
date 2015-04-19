@@ -202,6 +202,7 @@ namespace TPP_MainProject.Models
             IdentityResult result10 = userManager.Create(user10, "Pas@123");
             success = this.AddUserToRole(userManager, user10.Id, RolesConst.CUSTOMER);
             if (!success) return success;
+
             ApplicationUser user11 = new ApplicationUser();
             PasswordHasher passwordHaser11 = new PasswordHasher();
             user11.UserName = "customer4@gmail.com";
