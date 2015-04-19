@@ -10,10 +10,12 @@ namespace TPP_MainProject.Models.entities
     {
         public int id  { get; set; }
         public String name { get; set; }
-        public Double costs { get; set; }
+        public decimal costs { get; set; }
         public ProjectStatus projectStatus { get; set; }
         public virtual ICollection<WorkItem> tasks { get; set; }
-        public  Manager projectManager { get; set; }
+        public  ApplicationUser projectManager { get; set; }
+
+        public String nameProjectManager { get; set; }
         public virtual Order order {get;set; }
     }
 }

@@ -173,7 +173,7 @@
     <Compile Include="Controllers\CheckoutController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\DistributorController.cs" />
-    <Compile Include="Controllers\FilterProviderCollection.cs" />
+    <Compile Include="App_Start\FilterProviderCollection.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ItemsController.cs" />
     <Compile Include="Controllers\OperatorController.cs" />
