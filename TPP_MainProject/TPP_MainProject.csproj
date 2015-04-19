@@ -171,6 +171,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminUserController.cs" />
     <Compile Include="Controllers\CheckoutController.cs" />
+    <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\DistributorController.cs" />
     <Compile Include="Controllers\FilterProviderCollection.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -211,7 +212,7 @@
     <Compile Include="Models\entities\Worker.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\CustomerModel.cs" />
-    <Compile Include="Models\OrderCart.cs" />
+    <Compile Include="Models\entities\OrderCart.cs" />
     <Compile Include="Models\repository\GenericRepository.cs" />
     <Compile Include="Models\repository\UnitOfWork.cs" />
     <Compile Include="Models\ViewModels\AdminUserViewModel.cs" />
@@ -313,8 +314,6 @@
     <Content Include="Views\SalesManager\Details.cshtml" />
     <Content Include="Views\SalesManager\Edit.cshtml" />
     <Content Include="Views\SalesManager\Index.cshtml" />
-    <Content Include="Views\Order\Index.cshtml" />
-    <Content Include="Views\Order\Items.cshtml" />
     <Content Include="Views\OrderOperator\Index.cshtml" />
     <Content Include="Views\OrderOperator\Confrim.cshtml" />
     <Content Include="Views\ShoppingCart\CartSummary.cshtml" />
@@ -323,6 +322,8 @@
     <Content Include="Views\Items\Index.cshtml" />
     <Content Include="Views\Checkout\AddressAndPayment.cshtml" />
     <Content Include="Views\Checkout\Complete.cshtml" />
+    <Content Include="Views\Customer\Details.cshtml" />
+    <Content Include="Views\Customer\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
