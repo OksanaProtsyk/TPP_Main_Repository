@@ -6,7 +6,7 @@ using Microsoft.Owin;
 using TPP_MainProject.Models;
 using TPP_MainProject.Models.entities;
 using RestSharp;
-using OpenOrderFramework.Configuration;
+using TPP_MainProject.Configuration;
 using Microsoft.Owin.Security;
 using System;
 using System.Security.Claims;

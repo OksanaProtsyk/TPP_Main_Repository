@@ -8,7 +8,7 @@ using System.Web.Mvc;
 using TPP_MainProject.Models.entities;
 using TPP_MainProject.Models.repository;
 
-namespace OpenOrderFramework.Controllers
+namespace TPP_MainProject.Controllers
 {
     public class ShoppingCartController : Controller
     {

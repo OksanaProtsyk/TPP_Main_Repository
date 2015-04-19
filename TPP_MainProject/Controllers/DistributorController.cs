@@ -42,7 +42,7 @@ namespace TPP_MainProject.Controllers
             }
             if (User.IsInRole(RolesConst.Sales_MANAGER))
             {
-                return RedirectToAction("Index", RolesConst.Sales_MANAGER);
+                return RedirectToAction("Index", "Items");
             }
             if (User.IsInRole(RolesConst.ORDER_OPERATOR))
             {

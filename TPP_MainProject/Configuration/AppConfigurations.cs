@@ -5,7 +5,7 @@ using System.Configuration;
 using System.Linq;
 using System.Web;
 
-namespace OpenOrderFramework.Configuration
+namespace TPP_MainProject.Configuration
 {
     public class AppConfigurations : IConfiguration
     {
