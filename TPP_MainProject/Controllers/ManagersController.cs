@@ -17,13 +17,14 @@ namespace TPP_MainProject.Controllers
     public class ManagersController : Controller
     {
         UnitOfWork unitOfWork = new UnitOfWork();
-
+       [Authorize(Roles = "Managers")] 
         public ActionResult Index()
         {
             IEnumerable<Project> items = unitOfWork.ProjectRepository.Get().Where(s => s.projectManager.UserName.Equals(User.Identity.Name));
             //IEnumerable<Project> items = unitOfWork.ProjectRepository.Get();
             return View(items);
         }
+         [Authorize(Roles = "Managers")] 
 
         public ActionResult Details(int id = 0)
         {
@@ -38,7 +39,7 @@ namespace TPP_MainProject.Controllers
             }
             return View(item);
         }
-
+         [Authorize(Roles = "Managers")] 
         public ActionResult Edit(int id = 0)
         {
             if (id == 0)
@@ -57,6 +58,7 @@ namespace TPP_MainProject.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Managers")] 
         public ActionResult Edit(ProjectViewModel model)
         {
             Project item = unitOfWork.ProjectRepository.GetByID(model.id);
@@ -68,6 +70,7 @@ namespace TPP_MainProject.Controllers
             return RedirectToAction("Index");
         }
 
+         [Authorize(Roles = "Managers")] 
         public ActionResult EditTask(int id = 0)
         {
             if (id == 0)
@@ -87,6 +90,7 @@ namespace TPP_MainProject.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Managers")] 
         public ActionResult EditTask(WorkItemViewModel model)
         {
 

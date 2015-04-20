@@ -54,6 +54,7 @@ namespace TPP_MainProject.Controllers
         //
         // GET: /Admin/Index
         [AllowAnonymous]
+        [Authorize(Roles = "Admin")]
         public ActionResult Index(string sortOrder, string currentFilter, string searchString,int? page)
         {
             ViewBag.CurrentSort = sortOrder;
@@ -102,6 +103,7 @@ namespace TPP_MainProject.Controllers
             
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             ViewBag.roles = _db.Roles.ToList();
@@ -113,6 +115,7 @@ namespace TPP_MainProject.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
          public ActionResult Create(AdminUserViewModel model)
         {
 
@@ -276,7 +279,7 @@ namespace TPP_MainProject.Controllers
 
         //
         // GET: /Department/Details/5
-
+        [Authorize(Roles = "Admin")]
         public ActionResult Details(string id = "")
         {
             ApplicationUser user = _db.Users.Find(id);
@@ -288,7 +291,7 @@ namespace TPP_MainProject.Controllers
         }
         //
         // GET: /Department/Edit/5
-
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(string id = "")
         {
             ApplicationUser user = _db.Users.Find(id);
@@ -306,6 +309,7 @@ namespace TPP_MainProject.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(EditUserViewModel model)
         {
             if (ModelState.IsValid)
@@ -335,7 +339,7 @@ namespace TPP_MainProject.Controllers
 
         //
         // GET: /Department/Delete/5
-
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(string id = "")
         {
             ApplicationUser department = _db.Users.Find(id);
@@ -351,6 +355,7 @@ namespace TPP_MainProject.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirmed(string id)
         {
             ApplicationUser user = _db.Users.Find(id);

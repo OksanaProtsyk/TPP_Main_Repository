@@ -15,6 +15,7 @@ namespace TPP_MainProject.Controllers
         
         UnitOfWork unitOfWork = new UnitOfWork();
 
+         [Authorize(Roles = "Operator")] 
         // GET: Operator
         public ActionResult Index()
         {
