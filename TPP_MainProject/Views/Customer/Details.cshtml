@@ -1,37 +1,42 @@
-﻿@model TPP_MainProject.Models.entities.ProductItem
+﻿@model TPP_MainProject.Models.entities.Order
 
-@{
-    ViewBag.Title = "Details";
-}
-
-<h2>Details</h2>
-
-<div>
-    <h4>Order</h4>
-	<hr />
-    <dl class="dl-horizontal">
+ @{
+     ViewBag.Title = "Details";
+ }
+ 
+ <h2>Details</h2>
+ 
+ <div>
+     <h4>Order</h4>
+ 	<hr />
+     <dl class="dl-horizontal">
+         <dt>
+             Order Number
+         </dt>
+         <dd>
+            @Html.DisplayFor(model => model.OrderId)
+         </dd>
+         <dt>
+         @Html.DisplayNameFor(model => model.completeDate)
+         </dt>
+ 
+         <dd>
+                         @Html.DisplayFor(model => model.completeDate)
+         </dd>
+ 
         <dt>
-            Order Number
+            @Html.DisplayNameFor(model => model.orderStartus)
         </dt>
+
         <dd>
-            @Html.DisplayFor(model => model.Name)
+            @Html.DisplayFor(model => model.orderStartus)
         </dd>
+
         <dt>
-            @Html.DisplayNameFor(model => model.InternalImage)
+            @Html.DisplayNameFor(model => model.detailDescription)
         </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Price)
-        </dd>
+         <dd>
+            @Html.DisplayFor(model => model.detailDescription)
 
-        <dd>
-            @Html.DisplayFor(model => model.shortDescription)
-        </dd>
-         
-
-    </dl>
-</div>
-<p>
-   |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+         </dd>

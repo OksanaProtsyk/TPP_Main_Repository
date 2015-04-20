@@ -45,6 +45,7 @@ namespace TPP_MainProject.Controllers
                     order.OrderDate = DateTime.Now;
                     order.completeDate = DateTime.Now;
                     order.orderStartus = OrderStatus.Initiating;
+                    order.detailDescription = values[0];
                    
                     order.customer =(Customer) unitOfWork.CustomerRepository.dbSet.Where(s => s.UserName.Equals(User.Identity.Name)).First();
                   

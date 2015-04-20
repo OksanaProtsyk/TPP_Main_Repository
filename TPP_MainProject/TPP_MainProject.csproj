@@ -325,8 +325,6 @@
     <Content Include="Views\SalesManager\Details.cshtml" />
     <Content Include="Views\SalesManager\Edit.cshtml" />
     <Content Include="Views\SalesManager\Index.cshtml" />
-    <Content Include="Views\Order\Index.cshtml" />
-    <Content Include="Views\Order\Items.cshtml" />
     <Content Include="Views\OrderOperator\Index.cshtml" />
     <Content Include="Views\OrderOperator\Confrim.cshtml" />
     <Content Include="Views\ShoppingCart\CartSummary.cshtml" />

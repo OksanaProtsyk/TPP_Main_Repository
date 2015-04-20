@@ -103,7 +103,7 @@
                 @Html.DisplayFor(modelItem => item.Categorie)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
+                @Html.ActionLink(item.Name, "Details", "Items", new { id = item.ID }, null)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Price)

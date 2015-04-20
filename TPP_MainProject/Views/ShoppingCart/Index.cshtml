@@ -65,7 +65,7 @@
                     {
                         <tr id="row-@item.ProductItemId" style=" background:#ffffcc">
                             <td style=" background:#ffffcc">
-                                @Html.ActionLink(item.ProductItem.Name, "Details", "Store", new { id = item.ProductItemId }, null)
+                                @Html.ActionLink(item.ProductItem.Name, "Details", "Items", new { id = item.ProductItemId }, null)
                             </td>
                             <td style=" background:#ffffcc">
                                 @item.ProductItem.Price
